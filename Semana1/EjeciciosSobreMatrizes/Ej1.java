@@ -9,7 +9,7 @@ public class Ej1 {
 
         int cont = 1;
         for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < 5; j++) {
+            for (int j = 0; j < matriz[0].length; j++) {
                 matriz[i][j] = cont++;
             }
         }
@@ -20,7 +20,7 @@ public class Ej1 {
         int [][] matriz;
         matriz = llenarMatriz();
         for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz.length; j++) {
+            for (int j = 0; j < matriz[0].length; j++) {
                 System.out.print(matriz[i][j] + " ");
             }
             System.out.println();

@@ -1,6 +1,9 @@
 package EjeciciosSobreMatrizes;
 
 import java.util.Scanner;
+// Revisar funcionamiento
+// Pedir sexo y sueldo a la vez
+// Usar sólo una matriz!!!!
 
 public class Ej5 {
     public static void main(String[] args) {

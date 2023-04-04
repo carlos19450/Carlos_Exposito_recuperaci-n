@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Ej4 {
     public static void main(String[] args) {
+
         mostrarMatriz();
     }
     public static int[][] llenarMatriz() {

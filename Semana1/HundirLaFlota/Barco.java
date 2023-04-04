@@ -6,8 +6,8 @@ public class Barco {
     private String nombre;
     private int tamano;
     private String posicion;
-    public ArrayList<Integer> posicionesx=new ArrayList<Integer>();
-    public ArrayList<Integer> posicionesy=new ArrayList<Integer>();
+    public ArrayList<Integer> posicionesx = new ArrayList<Integer>();
+    public ArrayList<Integer> posicionesy = new ArrayList<Integer>();
     public Barco(int tamano,String nombre,String posicion) {
         this.tamano = tamano;
         this.nombre = nombre;

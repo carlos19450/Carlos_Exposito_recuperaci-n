@@ -17,12 +17,15 @@ public class Ej3 {
         m = sc.nextInt();
         System.out.println();
 
+        int [][] matriz = new int [n][m];
 
-        mostrarMatriz(n, m);
+
+        llenarMatriz(matriz);
+        mostrarMatriz(matriz);
+        combromarNumeroDeMatriz(matriz);
     }
-    public static int[][] llenarMatriz(int n, int m) {
+    public static int[][] llenarMatriz(int[][] matriz) {
         Scanner sc = new Scanner(System.in);
-        int [][] matriz = new int [n][m];;
         int num;
         System.out.println(matriz[0].length);
         for (int i = 0; i < matriz.length; i++) {
@@ -36,13 +39,20 @@ public class Ej3 {
         return matriz;
     }
 
-    public static void mostrarMatriz(int n, int m) {
+    public static void mostrarMatriz(int[][] matriz) {
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[0].length; j++) {
+                System.out.print(matriz[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void combromarNumeroDeMatriz(int[][] matriz) {
         int contMayorQue0 = 0;
         int contMenorQue0 = 0;
         int contIgualQue0 = 0;
-        int [][] matriz;
 
-        matriz = llenarMatriz(n, m);
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[0].length; j++) {
                 if (matriz[i][j] > 0) {

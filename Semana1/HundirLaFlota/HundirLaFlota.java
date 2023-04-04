@@ -3,6 +3,7 @@ package HundirLaFlota;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// 4 ESTADOS Y USAR SÓLO LA MATRIZ CON ESTADOS BARCO, AGUA, AGUA DISPARADA, BARCO DISPARADO, SÓLO LOS 2 ÚLTIMOS SE IMPRIMEN, EL RESTO ESPACIO EN BLANCO
 public class HundirLaFlota {
     public static ArrayList<String> ocupadas = new ArrayList<String>();
     public static ArrayList<String> repetidas = new ArrayList<String>();
@@ -152,7 +153,7 @@ public class HundirLaFlota {
 
         if(orientado.equals("derecha")){
             for(int i = y; i < y + longitud; i++){
-                if(comprobar(x, i)){
+                if(comprobarOcupadas(x, i)){
                     correcto = true;
                     repetidas.add(x + "," + i);
                 }else{
@@ -164,7 +165,7 @@ public class HundirLaFlota {
         }
         if(orientado.equals("izquierda")){
             for(int i = y; i > y - longitud; i--){
-                if(comprobar(x, i)){
+                if(comprobarOcupadas(x, i)){
                     correcto = true;
                     repetidas.add(x + "," + i);
                 }else{
@@ -176,7 +177,7 @@ public class HundirLaFlota {
         }
         if(orientado.equals("abajo")){
             for(int i = x; i < x + longitud; i++){
-                if(comprobar(i, x)){
+                if(comprobarOcupadas(i, x)){
                     correcto = true;
                     repetidas.add(x + "," + i);
                 }else{
@@ -188,7 +189,7 @@ public class HundirLaFlota {
         }
         if(orientado.equals("arriba")){
             for(int i = x; i > x - longitud; i--){
-                if(comprobar(i, x)){
+                if(comprobarOcupadas(i, x)){
                     correcto = true;
                     repetidas.add(x + "," + i);
                 }else{
@@ -204,7 +205,7 @@ public class HundirLaFlota {
             posfinal.add(posicionesfinal.toString());
         }
     }
-    public static boolean comprobar(int x,int o){
+    public static boolean comprobarOcupadas(int x,int o){
         return ocupadas.contains(x + "," + o) || ocupadas.contains(x + "," + o + ",") || ocupadas.contains(" " + x + "," + o + ",") || ocupadas.contains(" " + x + "," + o);
     }
 

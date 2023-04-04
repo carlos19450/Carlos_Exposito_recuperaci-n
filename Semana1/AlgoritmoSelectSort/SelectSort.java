@@ -1,23 +1,27 @@
 package AlgoritmoSelectSort;
 
 public class SelectSort {
+    //INTENTAR
     public static void selectionSort(int[] array){
-        for (int i = 0; i < array.length - 1; i++)
-        {
-            int index = i;
-            for (int j = i + 1; j < array.length; j++){
-                if (array[j] < array[index]){
-                    index = j;
+        int min;
+        int indice = 0;
+        for (int i = 0; i < array.length - 1; i++) {
+            min = array[i];
+            indice = i;
+            for (int j = 0; j < array.length; j++) {
+                if (array[j] < min) {
+                    min = array[j];
+                    indice = j;
                 }
             }
-            int numerMasBajo = array[index];
-            array[index] = array[i];
-            array[i] = numerMasBajo;
+            array[indice] = array[i];
+            array[i] = min;
         }
+
     }
 
     public static void main(String a[]){
-        int[] array = {8,7,6,5,4,3,2,1};
+        int[] array = {4, 7, 3, 2};
         System.out.println("Antes de hacer Selection Sort");
         for(int i : array){
             System.out.print(i + " ");

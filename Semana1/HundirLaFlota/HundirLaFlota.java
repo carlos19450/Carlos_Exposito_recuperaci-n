@@ -12,9 +12,9 @@ public class HundirLaFlota {
     public static int posx;
     public static int posy;
     public static void main(String[] args) {
-        ArrayList<Barco> barcos = new ArrayList<Barco>();
+        ArrayList<Barco> barcos = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
-        Barco barco;
+        Coordenadas coordenada = new Coordenadas();
         int intentos = 0;
         int barcosHundidos = 0;
         boolean tiroAcertado;
@@ -25,24 +25,7 @@ public class HundirLaFlota {
         crearTablero();
 
         //GENERACION DE BARCOS
-        for (int i = 0; i < 2; i++){
-            genenrarOrientacionDeBarcosAleatorios(3);
-            barco = new Barco(3,"Acorazado", posfinal.get(i));
-            barcos.add(barco);
-        }
-        for (int i = 2; i < 5; i++){
-            genenrarOrientacionDeBarcosAleatorios(2);
-            barco = new Barco(2,"Buque", posfinal.get(i));
-            barcos.add(barco);
-        }
-        for (int i = 5; i < 9;i++){
-            genenrarOrientacionDeBarcosAleatorios(1);
-            barco = new Barco(1,"Submarino", posfinal.get(i));
-            barcos.add(barco);
-        }
-        genenrarOrientacionDeBarcosAleatorios(4);
-        barco = new Barco(4,"Portaavion", posfinal.get(9));
-        barcos.add(barco);
+        generarBarcos(coordenada, barcos);
 
         do{
             System.out.println("SHOOTS: " + intentos);
@@ -117,7 +100,7 @@ public class HundirLaFlota {
         }
     }
 
-    public static void genenrarOrientacionDeBarcosAleatorios(int logitud) {
+    public static void genenrarOrientacionDeBarcosAleatorios(int logitud, Coordenadas coordenada) {
         int x = (int) (Math.random() * 8 + 1);
         int y = (int) (Math.random() * 8 + 1);
         int orientacion = (int) (Math.random() * 2 + 1);
@@ -145,62 +128,63 @@ public class HundirLaFlota {
                 orientado = "arriba";
             }
         }
-        generarPosiciones(x,y,orientado,logitud);
+        coordenada = new Coordenadas(x, y, orientado, logitud);
+        generarPosiciones(coordenada);
     }
-    public static void generarPosiciones(int x, int y, String orientado, int longitud){
+    public static void generarPosiciones(Coordenadas coordenada){
         StringBuilder posicionesfinal= new StringBuilder();
         boolean correcto = false;
 
-        if(orientado.equals("derecha")){
-            for(int i = y; i < y + longitud; i++){
-                if(comprobarOcupadas(x, i)){
+        if(coordenada.getOrientacion().equals("derecha")){
+            for(int i = coordenada.getY(); i < coordenada.getY() + coordenada.getLongitud(); i++){
+                if(comprobarOcupadas(coordenada.getX(), i)){
                     correcto = true;
-                    repetidas.add(x + "," + i);
+                    repetidas.add(coordenada.getX() + "," + i);
                 }else{
                     correcto = false;
-                    ocupadas.add(x + "," + i);
-                    posicionesfinal.append(x).append(",").append(i).append(" ");
+                    ocupadas.add(coordenada.getX() + "," + i);
+                    posicionesfinal.append(coordenada.getX()).append(",").append(i).append(" ");
                 }
             }
         }
-        if(orientado.equals("izquierda")){
-            for(int i = y; i > y - longitud; i--){
-                if(comprobarOcupadas(x, i)){
+        if(coordenada.getOrientacion().equals("izquierda")){
+            for(int i = coordenada.getY(); i > coordenada.getY() - coordenada.getLongitud(); i--){
+                if(comprobarOcupadas(coordenada.getX(), i)){
                     correcto = true;
-                    repetidas.add(x + "," + i);
+                    repetidas.add(coordenada.getX() + "," + i);
                 }else{
                     correcto = false;
-                    ocupadas.add(x + "," + i);
-                    posicionesfinal.append(x).append(",").append(i).append(" ");
+                    ocupadas.add(coordenada.getX() + "," + i);
+                    posicionesfinal.append(coordenada.getX()).append(",").append(i).append(" ");
                 }
             }
         }
-        if(orientado.equals("abajo")){
-            for(int i = x; i < x + longitud; i++){
-                if(comprobarOcupadas(i, x)){
+        if(coordenada.getOrientacion().equals("abajo")){
+            for(int i = coordenada.getX(); i < coordenada.getX() + coordenada.getLongitud(); i++){
+                if(comprobarOcupadas(i, coordenada.getX())){
                     correcto = true;
-                    repetidas.add(x + "," + i);
+                    repetidas.add(coordenada.getX() + "," + i);
                 }else{
                     correcto = false;
-                    ocupadas.add(" " + i + "," + x);
-                    posicionesfinal.append(i).append(",").append(x).append(" ");
+                    ocupadas.add(" " + i + "," + coordenada.getX());
+                    posicionesfinal.append(i).append(",").append(coordenada.getX()).append(" ");
                 }
             }
         }
-        if(orientado.equals("arriba")){
-            for(int i = x; i > x - longitud; i--){
-                if(comprobarOcupadas(i, x)){
+        if(coordenada.getOrientacion().equals("arriba")){
+            for(int i = coordenada.getX(); i > coordenada.getX() - coordenada.getLongitud(); i--){
+                if(comprobarOcupadas(i, coordenada.getX())){
                     correcto = true;
-                    repetidas.add(x + "," + i);
+                    repetidas.add(coordenada.getX() + "," + i);
                 }else{
                     correcto = false;
-                    ocupadas.add(i + "," + x);
-                    posicionesfinal.append(i).append(",").append(x).append(" ");
+                    ocupadas.add(i + "," + coordenada.getX());
+                    posicionesfinal.append(i).append(",").append(coordenada.getX()).append(" ");
                 }
             }
         }
         if (correcto){
-            genenrarOrientacionDeBarcosAleatorios(longitud);
+            genenrarOrientacionDeBarcosAleatorios(coordenada.getLongitud(), coordenada);
         }else{
             posfinal.add(posicionesfinal.toString());
         }
@@ -210,15 +194,15 @@ public class HundirLaFlota {
     }
 
     public static int esLetraCorrecta(String user){
-        return switch (user.substring(0, 1)) {
-            case "A", "a" -> 1;
-            case "B", "b" -> 2;
-            case "C", "c" -> 3;
-            case "D", "d" -> 4;
-            case "E", "e" -> 5;
-            case "F", "f" -> 6;
-            case "G", "g" -> 7;
-            case "H", "h" -> 8;
+        return switch (user.substring(0, 1).toLowerCase()) {
+            case "a" -> 1;
+            case "b" -> 2;
+            case "c" -> 3;
+            case "d" -> 4;
+            case "e" -> 5;
+            case "f" -> 6;
+            case "g" -> 7;
+            case "h" -> 8;
             default -> 0;
         };
     }
@@ -230,5 +214,27 @@ public class HundirLaFlota {
             }
             System.out.println();
         }
+    }
+
+    public static void generarBarcos(Coordenadas coordenada, ArrayList<Barco> barcos){
+        Barco barco;
+        for (int i = 0; i < 2; i++){
+            genenrarOrientacionDeBarcosAleatorios(3, coordenada);
+            barco = new Barco(3,"Acorazado", posfinal.get(i));
+            barcos.add(barco);
+        }
+        for (int i = 2; i < 5; i++){
+            genenrarOrientacionDeBarcosAleatorios(2, coordenada);
+            barco = new Barco(2,"Buque", posfinal.get(i));
+            barcos.add(barco);
+        }
+        for (int i = 5; i < 9;i++){
+            genenrarOrientacionDeBarcosAleatorios(1, coordenada);
+            barco = new Barco(1,"Submarino", posfinal.get(i));
+            barcos.add(barco);
+        }
+        genenrarOrientacionDeBarcosAleatorios(4, coordenada);
+        barco = new Barco(4,"Portaavion", posfinal.get(9));
+        barcos.add(barco);
     }
 }

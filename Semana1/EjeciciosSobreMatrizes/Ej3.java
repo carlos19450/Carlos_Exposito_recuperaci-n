@@ -19,7 +19,6 @@ public class Ej3 {
 
         int [][] matriz = new int [n][m];
 
-
         llenarMatriz(matriz);
         mostrarMatriz(matriz);
         combromarNumeroDeMatriz(matriz);

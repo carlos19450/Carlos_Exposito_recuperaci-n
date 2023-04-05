@@ -4,7 +4,7 @@ public class SelectSort {
     //INTENTAR
     public static void selectionSort(int[] array){
         int min;
-        int indice = 0;
+        int indice;
         for (int i = 0; i < array.length - 1; i++) {
             min = array[i];
             indice = i;
@@ -21,7 +21,7 @@ public class SelectSort {
     }
 
     public static void main(String a[]){
-        int[] array = {4, 7, 3, 2};
+        int[] array = {4, 2, 3, 7};
         System.out.println("Antes de hacer Selection Sort");
         for(int i : array){
             System.out.print(i + " ");

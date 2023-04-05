@@ -8,90 +8,57 @@ import java.util.Scanner;
 public class Ej5 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int genero;
-        int contVaron = 0;
-        int contMujer = 0;
         int numPersonas;
-        int [][] matrizVarones;
-        int [][] matrizMujeres;
-
+        Ej5PersonasTrabajadoras [][] matrizPersonasTrabajadoras;
         System.out.println("Cuantas personas queires introducir: ");
         numPersonas = sc.nextInt();
 
-        for (int i = 1; i <= numPersonas; i++) {
-            System.out.println("Introduce '0' opara varon '1' para mujer");
-            System.out.println("La persona numero "+ i + " es :");
-            genero = sc.nextInt();
-            if (genero == 0) {
-                contVaron++;
-            } else if (genero == 1) {
-                contMujer++;
-            }
-        }
+        matrizPersonasTrabajadoras = new Ej5PersonasTrabajadoras [numPersonas][1];
 
-        matrizVarones = new int [contVaron][1];
-        matrizMujeres = new int [contMujer][1];
-
-        mostrarMatrizes(matrizVarones, matrizMujeres);
+        llenarMatriz(matrizPersonasTrabajadoras);
+        mostrarYcalcularMatrize(matrizPersonasTrabajadoras);
     }
-    public static int[][] llenarMatrizVaron(int[][] matrizVarones) {
+    public static void llenarMatriz(Ej5PersonasTrabajadoras[][] matrizPersonasTrabajadoras) {
         Scanner sc = new Scanner(System.in);
-        int cont = 1;
         int sueldo;
+        int genero;
 
-        for (int i = 0; i < matrizVarones.length; i++) {
-            System.out.print("Trabajador " + cont + "\n");
-            cont++;
-            for (int j = 0; j < matrizVarones[0].length; j++) {
+        for (int i = 0; i < matrizPersonasTrabajadoras.length; i++) {
+            for (int j = 0; j < matrizPersonasTrabajadoras[0].length; j++) {
+                System.out.print("Trabajador " + (i + 1) + "\n");
+                System.out.println("Introduce '0' opara varon '1' para mujer");
+                System.out.println("La persona numero "+ i + " es :");
+                genero = sc.nextInt();
                 System.out.print("Su sueldo es de: ");
                 sueldo = sc.nextInt();
-                matrizVarones[i][j] = sueldo;
-                System.out.println();
+                matrizPersonasTrabajadoras[i][j] = new Ej5PersonasTrabajadoras(sueldo, genero);
             }
+            System.out.println();
         }
-        return matrizVarones;
     }
 
-    public static int[][] llenarMatrizMujer(int[][] matrizMujeres) {
-        Scanner sc = new Scanner(System.in);
-        int cont = 1;
-        int sueldo;
-        for (int i = 0; i < matrizMujeres.length; i++) {
-            System.out.print("Trabajadora " + cont + "\n");
-            cont++;
-            for (int j = 0; j < matrizMujeres[0].length; j++) {
-                System.out.print("Su sueldo es de: ");
-                sueldo = sc.nextInt();
-                matrizMujeres[i][j] = sueldo;
-                System.out.println();
-            }
-        }
-        return matrizMujeres;
-    }
-
-    public static void mostrarMatrizes(int[][] matrizVarones, int[][] matrizMujeres) {
+    public static void mostrarYcalcularMatrize(Ej5PersonasTrabajadoras[][] matrizPersonasTrabajadoras) {
         int sueldoMedioVaron = 0;
         int sueldoMedioMujer = 0;
-
-        matrizVarones = llenarMatrizVaron(matrizVarones);
-        matrizMujeres = llenarMatrizMujer(matrizMujeres);
+        int contHombres = 0;
+        int contMujeres = 0;
         // Sueldo varones
-        for (int i = 0; i < matrizVarones.length; i++) {
-            for (int j = 0; j < matrizVarones[0].length; j++) {
-                sueldoMedioVaron += matrizVarones[i][j];
+        for (int i = 0; i < matrizPersonasTrabajadoras.length; i++) {
+            for (int j = 0; j < matrizPersonasTrabajadoras[0].length; j++) {
+                if (matrizPersonasTrabajadoras[i][j].getGenero() == 1) {
+                    sueldoMedioVaron += matrizPersonasTrabajadoras[i][j].getSueldo();
+                    contHombres++;
+                }else {
+                    sueldoMedioMujer += matrizPersonasTrabajadoras[i][j].getSueldo();
+                    contMujeres++;
+                }
             }
         }
-        sueldoMedioVaron = sueldoMedioVaron / (matrizVarones[0].length + 1);
+        sueldoMedioVaron = sueldoMedioVaron / contHombres;
         System.out.println("El sueldo medio de los varones es : " + sueldoMedioVaron);
         System.out.println();
 
-        // Sueldo mujeres
-        for (int i = 0; i < matrizMujeres.length; i++) {
-            for (int j = 0; j < matrizMujeres[0].length; j++) {
-                sueldoMedioMujer += matrizMujeres[i][j];
-            }
-        }
-        sueldoMedioMujer = sueldoMedioMujer / (matrizMujeres[0].length + 1);
+        sueldoMedioMujer = sueldoMedioMujer / contMujeres;
         System.out.println("El sueldo medio de las mujeres es : " + sueldoMedioMujer);
         System.out.println();
     }

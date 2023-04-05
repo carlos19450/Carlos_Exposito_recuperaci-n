@@ -189,7 +189,7 @@ public class HundirLaFlota {
             posfinal.add(posicionesfinal.toString());
         }
     }
-    public static boolean comprobarOcupadas(int x,int o){
+    public static boolean comprobarOcupadas(int x, int o){
         return ocupadas.contains(x + "," + o) || ocupadas.contains(x + "," + o + ",") || ocupadas.contains(" " + x + "," + o + ",") || ocupadas.contains(" " + x + "," + o);
     }
 

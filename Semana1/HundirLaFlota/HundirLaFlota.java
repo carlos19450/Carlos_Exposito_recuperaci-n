@@ -40,11 +40,12 @@ public class HundirLaFlota {
             if (posx == 0 || posy <= 0 || posy > 10 ){
                 System.out.println("Error. Introduce una posición valida" + posx + posy);
             }else{
+                System.out.println();
                 tiroAcertado = false;
                 for(int i = 0; i < barcos.size(); i++){
                     barcoPos = barcos.get(i).getPosicion();
                     if(barcoPos.contains(posxy)){
-                        tablero[posx][posy] = "*";
+                        tablero[posx][posy] = "";
                         System.out.println("Has tocado un barco");
                         tiroAcertado = true;
                         barcos.get(i).tocado(posx, posy);

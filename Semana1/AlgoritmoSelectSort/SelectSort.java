@@ -6,14 +6,13 @@ public class SelectSort {
         int min;
         int indice;
         for (int i = 0; i < array.length - 1; i++) {
-            min = array[i];
             indice = i;
             for (int j = 0; j < array.length; j++) {
-                if (array[j] < min) {
-                    min = array[j];
+                if (array[j] < array[indice]) {
                     indice = j;
                 }
             }
+            min = array[indice];
             array[indice] = array[i];
             array[i] = min;
         }

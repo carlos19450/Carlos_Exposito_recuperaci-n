@@ -7,7 +7,7 @@ public class SelectSort {
         int indice;
         for (int i = 0; i < array.length - 1; i++) {
             indice = i;
-            for (int j = 0; j < array.length; j++) {
+            for (int j = i; j < array.length; j++) {
                 if (array[j] < array[indice]) {
                     indice = j;
                 }
@@ -16,7 +16,6 @@ public class SelectSort {
             array[indice] = array[i];
             array[i] = min;
         }
-
     }
 
     public static void main(String a[]){

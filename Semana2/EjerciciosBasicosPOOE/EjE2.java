@@ -8,6 +8,7 @@ public class EjE2 {
     public static void main(String[] args) {
         Persona persona1;
         Persona persona2;
+        boolean correcto;
         Scanner sc = new Scanner(System.in);
         String dni;
         String nombre;
@@ -15,29 +16,40 @@ public class EjE2 {
         int edad;
         String esMayorDeEdad;
         String esJubilado;
+        do {
+            correcto = true;
+            System.out.println("Persona 1");
+            System.out.println("Dni:");
+            dni = sc.next();
+            System.out.println("Nombre:");
+            nombre = sc.next();
+            System.out.println("Apellidos:");
+            apellidos = sc.next();
+            System.out.println("Edad:");
+            edad = sc.nextInt();
+            System.out.println();
+            persona1 = new Persona(dni, nombre, apellidos, edad);
+            if (persona1.getNombre() == null || persona1.getApellidos() == null || persona1.getEdad() < 0) {
+                correcto = false;
+            }
+        }while (!correcto);
+        do{
+            System.out.println("Persona 2");
+            System.out.println("Dni:");
+            dni = sc.next();
+            System.out.println("Nombre:");
+            nombre = sc.next();
+            System.out.println("Apellidos:");
+            apellidos = sc.next();
+            System.out.println("Edad:");
+            edad = sc.nextInt();
+            System.out.println();
+            persona2 = new Persona(dni, nombre, apellidos, edad);
 
-        System.out.println("Dni:");
-        dni = sc.next();
-        System.out.println("Nombre:");
-        nombre = sc.next();
-        System.out.println("Apellidos:");
-        apellidos = sc.next();
-        System.out.println("Edad:");
-        edad = sc.nextInt();
-        System.out.println();
-        persona1 = new Persona(dni, nombre, apellidos, edad);
-
-        System.out.println("Dni:");
-        dni = sc.next();
-        System.out.println("Nombre:");
-        nombre = sc.next();
-        System.out.println("Apellidos:");
-        apellidos = sc.next();
-        System.out.println("Edad:");
-        edad = sc.nextInt();
-        System.out.println();
-        persona2 = new Persona(dni, nombre, apellidos, edad);
-
+            if (dni == null || nombre == null || apellidos == null) {
+                correcto = false;
+            }
+        }while (!correcto);
         persona1.imprime();
         persona2.imprime();
         System.out.println();

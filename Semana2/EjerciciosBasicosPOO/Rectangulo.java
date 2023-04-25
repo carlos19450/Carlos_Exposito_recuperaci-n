@@ -103,20 +103,22 @@ public class Rectangulo {
     }
 
     public double getPerimetro() {
-        return ((getX2() + getY2()) * 2);
+        return (getX1() * 2) + (getX2() * 2);
     }
 
     public double getArea() {
-        return (getX1() * getY1());
+        return (getX1() * getX2());
     }
 
     @Override
     public String toString() {
-        return "Rectangulo{" +
-                "x1=" + x1 +
-                ", y1=" + y1 +
-                ", x2=" + x2 +
-                ", y2=" + y2 +
-                '}';
+        return  "Las coordenados del rectangulo son: " + x1 +
+                ", " + y1 +
+                ", " + x2 +
+                ", " + y2 +
+                "\n" +
+                "El perimetro del rectangulo es: " + getPerimetro() +
+                "\n" +
+                "El area del rectangulo es: " + getArea();
     }
 }

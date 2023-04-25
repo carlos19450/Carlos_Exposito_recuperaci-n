@@ -70,11 +70,11 @@ public class Articulo {
     }
 
     public double getPVP(double iva) {
-        return (getPrecio() * (iva / 100));
+        return  this.getPrecio() + (this.getPrecio() * (iva / 100));
     }
 
-    public double getPVPDescuento( double pvp) {
-        return getPrecio() - pvp;
+    public double getPVPDescuento(double decuento) {
+        return Math.round(this.getPrecio() - (this.getPVP(this.iva) * (decuento / 100)));
     }
 
     public boolean vender(int cantidadVendidos) {

@@ -9,7 +9,7 @@ public class EjE4 {
         Articulo articulo3 = new Articulo("Zapatos", 4, 40, 7);
 
         //ARTICULO1
-        System.out.println(articulo1.getNombre() +" - Precio: "+ articulo1.getPrecio() +" - IVA: "+ articulo1.getIva() + " - PVP " + articulo1.getPVP(articulo1.getIva()) + " - PVP con descuento: "+ articulo1.getPVPDescuento(articulo1.getPVP(articulo1.getIva())));
+        System.out.println(articulo1.getNombre() +" - Precio: "+ articulo1.getPrecio() +" - IVA: "+ articulo1.getIva() + " - PVP " + articulo1.getPVP(articulo1.getIva()) + " - PVP con descuento: "+ articulo1.getPVPDescuento(10));
         articulo1.vender(1);
         System.out.println("Vendido 1, cantidad: " + articulo1.getStock());
         articulo1.almacenar(1);

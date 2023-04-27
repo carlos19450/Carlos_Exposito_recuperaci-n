@@ -4,6 +4,8 @@ public class Punto {
     private int x;
     private int y;
 
+
+
     public Punto(int x, int y) {
         this.x = x;
         this.y = y;
@@ -39,15 +41,8 @@ public class Punto {
         this.y = this.y + dy;
     }
 
-    public int distancia(Punto p) {
-        int coordenada;
-
-        if (getX() > p.x){
-            coordenada = getX() - p.x;
-        } else {
-            coordenada = p.x - getY();
-        }
-        return coordenada;
+    public double distancia(Punto p) {
+        return Math.sqrt(Math.pow(this.getX() - p.x, 2) + Math.pow(this.getY() - p.y, 2));
     }
 
     public static Punto creaPuntoAleatorio(){

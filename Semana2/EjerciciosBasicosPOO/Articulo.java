@@ -1,6 +1,7 @@
 package EjerciciosBasicosPOO;
 
 public class Articulo {
+    //Metodo que calcula % y despues suma o resta
     private String nombre;
     private double iva;
     private double precio;
@@ -69,12 +70,12 @@ public class Articulo {
         }
     }
 
-    public double getPVP(double iva) {
-        return  this.getPrecio() + (this.getPrecio() * (iva / 100));
+    public double getPVP() {
+        return  this.getPrecio() + (this.getPrecio() * (this.iva / 100));
     }
 
     public double getPVPDescuento(double decuento) {
-        return Math.round(this.getPrecio() - (this.getPVP(this.iva) * (decuento / 100)));
+        return Math.round(this.getPrecio() - (this.getPVP() * (decuento / 100)));
     }
 
     public boolean vender(int cantidadVendidos) {

@@ -65,13 +65,7 @@ public class Persona {
     }
 
     public int diferenciaEdad(Persona p) {
-        int diferenciaEdad;
-        if (this.edad < p.edad) {
-            diferenciaEdad = p.edad - this.edad;
-        }else  {
-            diferenciaEdad = this.edad - p.edad;
-        }
-        return diferenciaEdad;
+        return Math.abs(this.edad - p.edad);
     }
 
     public static boolean validarDNI(String dni){

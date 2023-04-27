@@ -103,11 +103,13 @@ public class Rectangulo {
     }
 
     public double getPerimetro() {
-        return (getX1() * 2) + (getX2() * 2);
+        Punto p1 = new Punto(x1, y1);
+        return p1.distancia(new Punto(x2, y1)) * 2 + p1.distancia(new Punto(x1, y2)) * 2;
     }
 
     public double getArea() {
-        return (getX1() * getX2());
+        Punto p1 = new Punto(x1, y1);
+        return p1.distancia(new Punto(x2, y1)) * p1.distancia(new Punto(x1, y2));
     }
 
     @Override

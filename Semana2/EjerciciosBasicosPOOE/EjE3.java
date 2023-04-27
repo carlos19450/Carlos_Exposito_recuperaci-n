@@ -4,8 +4,8 @@ import EjerciciosBasicosPOO.Rectangulo;
 
 public class EjE3 {
     public static void main(String[] args) {
-        Rectangulo rectangulo1 = new Rectangulo(2, 2, 4, 4);
-        Rectangulo rectangulo2 = new Rectangulo(1, 1, 2, 2);
+        Rectangulo rectangulo1 = new Rectangulo(1, 2, 3, 7);
+        Rectangulo rectangulo2 = new Rectangulo(1, 1, 4, 5);
 
         System.out.println("Rectangulo 1");
         System.out.println(rectangulo1);

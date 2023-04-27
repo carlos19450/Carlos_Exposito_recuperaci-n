@@ -15,40 +15,17 @@ public class DawBank {
         boolean verdad;
 
         do {
-            verdad = true;
             System.out.println("Introduce un IBAN.");
             System.out.print("Introducir: ");
             iban = sc.nextLine();
-            System.out.println();
-            if (iban.matches("[A-Z]{2}\\d{2} ? \\d{4} ? \\d{4} ? \\d{4} ? \\d{4} ? \\d{4} ?")) {
-                verdad = true;
-                System.out.println("Bien, el IBAN " + iban + " es un IBAN válido.\n");
-            } else {
-                System.err.println("Error. El IBAN es incorrecto porfavor introduce un IBAN válido 'yyxx xxxx xxxx xxxx xxxx xxxx'.\n");
-                verdad = false;
-            }
+            verdad = validarIban(iban);
         } while (!verdad);
 
         do {
-            verdad = true;
             System.out.println("Introduce el nombre del titutal.");
             System.out.print("Introducir: ");
             titular = sc.nextLine();
-            System.out.println();
-
-            //Comprueba si el nombre contiene numeros.
-            for (int i = 0; i < titular.length(); i++) {
-                if (!Character.isAlphabetic((titular.charAt(i)))) {
-                    verdad = false;
-                }
-            }
-            if (verdad) {
-                verdad = true;
-                System.out.println("Bien, el nombre " + titular + " es un nombre válido.\n");
-            } else {
-                System.err.println("Error. Un nombre no puede tener nuemros...\n");
-                verdad = false;
-            }
+            verdad = validarTitular(titular);
         } while (!verdad);
 
         //Instanciamos un objeto Cuenta
@@ -92,7 +69,6 @@ public class DawBank {
                 case 5:
                     System.out.println("Ingresar: ");
                     do {
-                        verdad = true;
                         ingresar = sc.nextInt();
                         if (ingresar > 0) {
                             verdad = true;
@@ -110,16 +86,12 @@ public class DawBank {
                 case 6:
                     System.out.println("Retirar: ");
                     do {
-                        verdad = true;
                         retirar = sc.nextInt();
                         if (retirar > 0) {
                             verdad = true;
                             cuenta1.retirar(retirar);
                             if (cuenta1.getsaldo() - retirar <= cuenta1.saldoinferior) {
                                 contmov++;
-                            } else {
-                                verdad = false;
-                                System.err.println("Error. El saldo minimo permitido es -50.");
                             }
                         } else {
                             verdad = false;
@@ -145,5 +117,35 @@ public class DawBank {
                     System.err.println("Error. Has introducido un numero que no esta en el menu. Introduce un numero del menu.");
             }
         } while (menu != 8);
+    }
+    public static boolean validarIban(String iban) {
+        boolean verdad;
+        if (iban.matches("[A-Z]{2}\\d{2} ? \\d{4} ? \\d{4} ? \\d{4} ? \\d{4} ? \\d{4} ?")) {
+            verdad = true;
+            System.out.println("Bien, el IBAN " + iban + " es un IBAN válido.\n");
+        } else {
+            System.err.println("Error. El IBAN es incorrecto porfavor introduce un IBAN válido 'yyxx xxxx xxxx xxxx xxxx xxxx'.\n");
+            verdad = false;
+        }
+        return verdad;
+    }
+
+    public static boolean validarTitular(String titular) {
+        boolean verdad = true;
+        //Comprueba si el nombre contiene numeros.
+        for (int i = 0; i < titular.length(); i++) {
+            if (!Character.isAlphabetic((titular.charAt(i)))) {
+                verdad = false;
+            }
+        }
+        if (verdad) {
+            verdad = true;
+            System.out.println("Bien, el nombre " + titular + " es un nombre válido.\n");
+        } else {
+            System.err.println("Error. Un nombre no puede tener nuemros...\n");
+            verdad = false;
+        }
+        System.out.println();
+        return verdad;
     }
 }

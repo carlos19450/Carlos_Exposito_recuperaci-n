@@ -11,7 +11,7 @@ public class Rectangulo extends Punto{
     }
 
     public int getAncho() {
-        return ancho;
+        return this.ancho;
     }
 
     public void setAncho(int ancho) {
@@ -32,6 +32,18 @@ public class Rectangulo extends Punto{
 
     public int getPerimetro() {
         return (this.alto * 2) + (this.ancho * 2);
+    }
+    public void getPuntoInferiorIzquierdo() {
+
+    }
+    public void getPuntoSuperiorIzquierdo() {
+
+    }
+    public void getPuntoInferiorDerecho() {
+
+    }
+    public void getPuntoSuperiorDerecho() {
+
     }
     @Override
     public String toString() {

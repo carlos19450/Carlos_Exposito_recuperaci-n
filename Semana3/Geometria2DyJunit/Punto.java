@@ -1,5 +1,5 @@
 package Geometria2DyJunit;
-
+import java.util.stream.DoubleStream;
 public class Punto {
     private int x;
     private int y;
@@ -28,12 +28,12 @@ public class Punto {
         this.y = y;
     }
 
-    private void moveTo(int x, int y) {
+    public void moveTo(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    private void setOffset(int xoffset, int yoffset) {
+    public void setOffset(int xoffset, int yoffset) {
         this.x += xoffset;
         this.y += yoffset;
     }

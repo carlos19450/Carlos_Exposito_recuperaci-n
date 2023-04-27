@@ -76,7 +76,8 @@ public class Segmento {
 
     //FALTA IMPLEMENTAR
     public void setOffset(int xOffset, int yOffset) {
-
+        /*this.x += xOffset;
+        this.y += yOffset;*/
     }
 
     @Override

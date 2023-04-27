@@ -45,4 +45,6 @@ public class Punto {
                 ", y=" + y +
                 '}';
     }
+
+    //implementar getdistancia para facilitarnos la vida en el perimetro del poligono
 }

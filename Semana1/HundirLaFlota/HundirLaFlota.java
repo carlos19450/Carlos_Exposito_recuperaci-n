@@ -12,6 +12,13 @@ public class HundirLaFlota {
     public static int posx;
     public static int posy;
     public static void main(String[] args) {
+
+        // el main tiene que ser de 20 lineas o menos
+        // inicializarJuego -> crear los barcos
+        // bucle
+        // mostrartablero
+        // hacer turno
+        // fin
         ArrayList<Barco> barcos = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         Coordenadas coordenada = new Coordenadas();

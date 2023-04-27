@@ -3,11 +3,7 @@ package Geometria2DyJunit;
 public class Segmento {
     private Punto inicio;
     private Punto fin;
-
-    private int x1;
-    private int y1;
-    private int x2;
-    private int y2;
+    int x1,x2,y2,y1; // BORRARLO!!!!!
 
     public Segmento(Punto punto1, Punto punto2) {
         this.inicio = punto1;
@@ -71,13 +67,16 @@ public class Segmento {
 
     //FALTA IMPLEMENTAR
     public int longitudDelSegmento() {
+        //Sacar distancia entre punto 1 punto 2
         return 0;
     }
 
     //FALTA IMPLEMENTAR
     public void setOffset(int xOffset, int yOffset) {
-        /*this.x += xOffset;
-        this.y += yOffset;*/
+        /*this.x1 += xOffset;
+        this.y1 += yOffset;*/
+        /*this.x2 += xOffset;
+        this.y2 += yOffset;*/
     }
 
     @Override

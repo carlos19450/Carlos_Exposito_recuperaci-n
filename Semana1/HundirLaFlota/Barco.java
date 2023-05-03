@@ -42,9 +42,9 @@ public class Barco {
         return this.posicionesx.size();
     }
 
-    public void tocado(int fila,int columna){
-        this.posicionesx.add(fila);
-        this.posicionesy.add(columna);
+    public void tocado(int posX,int posY){
+        this.posicionesx.add(posX);
+        this.posicionesy.add(posY);
     }
 
     @Override

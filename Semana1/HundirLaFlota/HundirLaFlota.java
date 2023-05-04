@@ -14,6 +14,14 @@ public class HundirLaFlota {
     public static int intentos = 0;
     public static int barcosHundidos = 0;
     public static void main(String[] args) {
+
+        // INICIALZIAR EL TABLERO
+        // CREAR BARCOS
+        // MOSTRAR TABLERO
+        // HACER UN TURNO
+        // HUNDIR BARCO / MARCAR AUGA
+        // HE GANADO? -> NO MOSTRAR TABLERO
+        //              -> SI fin
         ArrayList<Barco> barcos = new ArrayList<>();
         Coordenadas coordenada = new Coordenadas();
         crearTablero();
@@ -28,6 +36,17 @@ public class HundirLaFlota {
         System.out.println("HAS HUNDIDO TODOS LOS BARCOS, TU GANAS!!!");
         crearTablero();
     }
+
+    /*void crearBarcos() {
+        // BUCLES PARA CREAR X BARCOS DE CADA TAMAÑO
+        // creaBarco(longitud, id, coordenadas)
+    }
+
+    crearBarco() {
+        calcularCoordenadas(longitud,)
+    }*/
+
+    mostrarTablero() {}
 
     public static void comprobarEstadoDelBarco(ArrayList<Barco> barcos, String posxy) {
         boolean tiroAcertado;
@@ -114,11 +133,18 @@ public class HundirLaFlota {
     public static void mostrarTablero() {
         for(int i = 0; i < tablero.length; i++){
             for(int j = 0; j < tablero[0].length; j++){
+                //bool hayunbarcoen(i,j)
                 System.out.print(tablero[i][j]+"    ");
             }
             System.out.println();
         }
     }
+// void hayBarco(i,j)
+    for barcos
+        for coorendedas
+                x,y = i,j
+            haybarco
+    nohaybarco
 
     public static void hacerTurno(ArrayList<Barco> barcos) {
         Scanner sc = new Scanner(System.in);
@@ -137,7 +163,7 @@ public class HundirLaFlota {
         }
     }
     //NUEVO
-
+genenrarOrientacionDeBarcosAleatorios
 
 
     public static void genenrarOrientacionDeBarcosAleatorios(int logitud, Coordenadas coordenada) {

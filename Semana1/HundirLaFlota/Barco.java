@@ -2,6 +2,8 @@ package HundirLaFlota;
 
 import java.util.ArrayList;
 
+// Barco tendrá lista de objetos coordenadas
+//
 public class Barco {
     private String nombre;
     private int tamano;

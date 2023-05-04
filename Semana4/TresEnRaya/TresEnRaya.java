@@ -32,6 +32,7 @@ public class TresEnRaya {
             } else {
                 System.out.println("Turno de la máquina (O)");
                 do {
+                    //pensarJugada()
                     fila = (int) (Math.random() * 3);
                     columna = (int) (Math.random() * 3);
                 } while (!movimientoValido(tablero, fila, columna));
@@ -49,6 +50,7 @@ public class TresEnRaya {
                 finJuego = true;
             }
         }while (!finJuego);
+        if (comprobarGanador)
     }
 
     public static void inicializarTablero(char[][] tablero) {
@@ -78,7 +80,17 @@ public class TresEnRaya {
         return tablero[fila][columna] == '~';
     }
 
-    public static boolean comprobarGanador(char[][] tablero, char ficha) {
+    public static int comprobarGanador(char[][] tablero) {
+        if comprobarGanador("x")
+        return 1;
+        else if comprobarGanador("0")
+        return -1;
+        else
+            return 0;
+    }
+
+
+        public static boolean comprobarGanador(char[][] tablero, char ficha) {
         // COMPROBAR FILA
         for (int i = 0; i < tablero.length; i++) {
             if (tablero[i][0] == ficha && tablero[i][1] == ficha && tablero[i][2] == ficha) {

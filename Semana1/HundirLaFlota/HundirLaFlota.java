@@ -172,7 +172,7 @@ public class HundirLaFlota {
         generarPosiciones(coordenada);
     }
     public static void generarPosiciones(Coordenadas coordenada){
-        StringBuilder posicionesfinal= new StringBuilder();
+        String posicionesfinal = null;
         boolean ocupada = false;
 
         if(coordenada.getOrientacion().equals("derecha")){
@@ -183,7 +183,7 @@ public class HundirLaFlota {
                 }else{
                     ocupada = false;
                     ocupadas.add(coordenada.getX() + "," + i);
-                    posicionesfinal.append(coordenada.getX()).append(",").append(i).append(" ");
+                    posicionesfinal = coordenada.getX() + (",") + i + " ";
                 }
             }
         }
@@ -195,7 +195,7 @@ public class HundirLaFlota {
                 }else{
                     ocupada = false;
                     ocupadas.add(coordenada.getX() + "," + i);
-                    posicionesfinal.append(coordenada.getX()).append(",").append(i).append(" ");
+                    posicionesfinal = coordenada.getX() + (",") + i + " ";
                 }
             }
         }
@@ -207,7 +207,7 @@ public class HundirLaFlota {
                 }else{
                     ocupada = false;
                     ocupadas.add(" " + i + "," + coordenada.getX());
-                    posicionesfinal.append(i).append(",").append(coordenada.getX()).append(" ");
+                    posicionesfinal = i + "," + coordenada.getX() + " ";
                 }
             }
         }
@@ -219,7 +219,7 @@ public class HundirLaFlota {
                 }else{
                     ocupada = false;
                     ocupadas.add(i + "," + coordenada.getX());
-                    posicionesfinal.append(i).append(",").append(coordenada.getX()).append(" ");
+                    posicionesfinal = i + "," + coordenada.getX() + " ";
                 }
             }
         }

@@ -7,97 +7,25 @@ import java.util.Scanner;
 public class HundirLaFlota {
     public static ArrayList<String> ocupadas = new ArrayList<String>();
     public static ArrayList<String> repetidas = new ArrayList<String>();
-    public static ArrayList<String> posfinal = new ArrayList<String>();
     public static String [][] tablero = new String[9][9];
+    public static Coordenadas coordenada;
     public static int posx;
     public static int posy;
     public static int intentos = 0;
     public static int barcosHundidos = 0;
     public static void main(String[] args) {
-
-        // INICIALZIAR EL TABLERO
-        // CREAR BARCOS
-        // MOSTRAR TABLERO
-        // HACER UN TURNO
-        // HUNDIR BARCO / MARCAR AUGA
-        // HE GANADO? -> NO MOSTRAR TABLERO
-        //              -> SI fin
         ArrayList<Barco> barcos = new ArrayList<>();
-        Coordenadas coordenada = new Coordenadas();
         crearTablero();
-        inicializarJuego(coordenada, barcos);
+        crearBarcos(barcos);
         do{
             System.out.println("SHOOTS: " + intentos);
             System.out.println("SUNK SHIPS: " + barcosHundidos);
-            mostrarTablero();
+            mostrarTablero(barcos);
             hacerTurno(barcos);
         }while(barcosHundidos != 10);
         System.out.println();
         System.out.println("HAS HUNDIDO TODOS LOS BARCOS, TU GANAS!!!");
         crearTablero();
-    }
-
-    /*void crearBarcos() {
-        // BUCLES PARA CREAR X BARCOS DE CADA TAMAÑO
-        // creaBarco(longitud, id, coordenadas)
-    }
-
-    crearBarco() {
-        calcularCoordenadas(longitud,)
-    }*/
-
-    mostrarTablero() {}
-
-    public static void comprobarEstadoDelBarco(ArrayList<Barco> barcos, String posxy) {
-        boolean tiroAcertado;
-        String barcoPos;
-
-        System.out.println();
-        tiroAcertado = false;
-        for(int i = 0; i < barcos.size(); i++){
-            barcoPos = barcos.get(i).getPosicion();
-            if(barcoPos.contains(posxy)){
-                tablero[posx][posy] = "";
-                System.out.println("Has tocado un barco");
-                tiroAcertado = true;
-                barcos.get(i).tocado(posx, posy);
-                if(barcos.get(i).posiciones() == barcos.get(i).getTamano()){
-                    System.out.println("HUNDIDO!. Has hundido un " + barcos.get(i).getNombre());
-                    barcosHundidos++;
-                    for(int j = 0; j < barcos.get(i).posicionesx.size(); j++){
-                        tablero[barcos.get(i).posicionesx.get(j)][barcos.get(i).posicionesy.get(j)] = "X";
-                    }
-                    barcos.remove(i);
-                }
-            }
-        }
-        if(!tiroAcertado){
-            System.out.println("Agua");
-            tablero[posx][posy] = "O";
-        }
-        intentos++;
-    }
-    //NUEVO
-    public static void inicializarJuego(Coordenadas coordenada, ArrayList<Barco> barcos) {
-        Barco barco;
-        for (int i = 0; i < 2; i++){
-            genenrarOrientacionDeBarcosAleatorios(3, coordenada);
-            barco = new Barco(3,"Acorazado", posfinal.get(i));
-            barcos.add(barco);
-        }
-        for (int i = 2; i < 5; i++){
-            genenrarOrientacionDeBarcosAleatorios(2, coordenada);
-            barco = new Barco(2,"Buque", posfinal.get(i));
-            barcos.add(barco);
-        }
-        for (int i = 5; i < 9;i++){
-            genenrarOrientacionDeBarcosAleatorios(1, coordenada);
-            barco = new Barco(1,"Submarino", posfinal.get(i));
-            barcos.add(barco);
-        }
-        genenrarOrientacionDeBarcosAleatorios(4, coordenada);
-        barco = new Barco(4,"Portaavion", posfinal.get(9));
-        barcos.add(barco);
     }
 
     public static void crearTablero() {
@@ -122,7 +50,7 @@ public class HundirLaFlota {
                     letras = letras + 1;
                     letra = (char)letras;
                 }
-                //Primer cuadrado siempre NULL
+                //Primer cuadrado siempre " "
                 if (i == 0 && j == 0) {
                     tablero[0][0] = " ";
                 }
@@ -130,7 +58,33 @@ public class HundirLaFlota {
         }
     }
 
-    public static void mostrarTablero() {
+    public static void crearBarcos(ArrayList<Barco> barcos) {
+        Barco barco;
+        for (int i = 0; i < 2; i++){
+            barco = new Barco(3,"Acorazado", i);
+            genenrarOrientacionDeBarcosAleatorios(barco);
+            barcos.add(barco);
+        }
+        for (int i = 2; i < 5; i++){
+            barco = new Barco(2,"Buque", i);
+            genenrarOrientacionDeBarcosAleatorios(barco);
+            barcos.add(barco);
+        }
+        for (int i = 5; i < 9;i++){
+            barco = new Barco(1,"Submarino", i);
+            genenrarOrientacionDeBarcosAleatorios(barco);
+            barcos.add(barco);
+        }
+        barco = new Barco(4,"Portaavion", 9);
+        genenrarOrientacionDeBarcosAleatorios(barco);
+        barcos.add(barco);
+
+        for (Barco b : barcos) {
+            System.out.println(b.getPosicionFinal());
+        }
+    }
+
+    public static void mostrarTablero(ArrayList<Barco> barcos) {
         for(int i = 0; i < tablero.length; i++){
             for(int j = 0; j < tablero[0].length; j++){
                 //bool hayunbarcoen(i,j)
@@ -139,12 +93,6 @@ public class HundirLaFlota {
             System.out.println();
         }
     }
-// void hayBarco(i,j)
-    for barcos
-        for coorendedas
-                x,y = i,j
-            haybarco
-    nohaybarco
 
     public static void hacerTurno(ArrayList<Barco> barcos) {
         Scanner sc = new Scanner(System.in);
@@ -156,65 +104,20 @@ public class HundirLaFlota {
         posx = esLetraCorrecta(posicionIntroducida);
         posy = Integer.parseInt(posicionIntroducida.substring(1));
         posxy = posx + "," + posy;
-        if (posx == 0 || posy <= 0 || posy > 10 ){
-            System.out.println("Error. Introduce una posición valida" + posx + posy);
+        if (posx == 0 || posy <= 0 || posy > 9 ){
+            System.out.println("Error. Introduce una posición valida");
+            System.out.println();
         }else{
             comprobarEstadoDelBarco(barcos, posxy);
         }
     }
-    //NUEVO
-genenrarOrientacionDeBarcosAleatorios
 
-
-    public static void genenrarOrientacionDeBarcosAleatorios(int logitud, Coordenadas coordenada) {
-        int x = (int) (Math.random() * 8 + 1);
-        int y = (int) (Math.random() * 8 + 1);
-        int orientacion = (int) (Math.random() * 2 + 1);
-        String orientado;
-        if (x < 4 && y < 4) {
-            if (orientacion == 1) {
-                orientado = "derecha";
-            } else {
-                orientado = "abajo";
-            }
-        } else if (x > 4 && y > 4) {
-            if (orientacion == 1) {
-                orientado = "izquierda";
-            } else {
-                orientado = "arriba";
-            }
-        } else if (x > 4 && y < 4) {
-            orientado = "arriba";
-        } else if (x < 4 && y > 4) {
-            orientado = "abajo";
-        } else {
-            if (orientacion == 1) {
-                orientado = "izquierda";
-            } else {
-                orientado = "arriba";
-            }
-        }
-        coordenada = new Coordenadas(x, y, orientado, logitud);
-        generarPosiciones(coordenada);
-    }
-    public static void generarPosiciones(Coordenadas coordenada){
+    public static void crearCoordenadasAlosBarco(Barco barco) {
         String posicionesfinal = null;
         boolean ocupada = false;
 
         if(coordenada.getOrientacion().equals("derecha")){
             for(int i = coordenada.getY(); i < coordenada.getY() + coordenada.getLongitud(); i++){
-                if(comprobarOcupadas(coordenada.getX(), i)){
-                    ocupada = true;
-                    repetidas.add(coordenada.getX() + "," + i);
-                }else{
-                    ocupada = false;
-                    ocupadas.add(coordenada.getX() + "," + i);
-                    posicionesfinal = coordenada.getX() + (",") + i + " ";
-                }
-            }
-        }
-        if(coordenada.getOrientacion().equals("izquierda")){
-            for(int i = coordenada.getY(); i > coordenada.getY() - coordenada.getLongitud(); i--){
                 if(comprobarOcupadas(coordenada.getX(), i)){
                     ocupada = true;
                     repetidas.add(coordenada.getX() + "," + i);
@@ -237,24 +140,43 @@ genenrarOrientacionDeBarcosAleatorios
                 }
             }
         }
-        if(coordenada.getOrientacion().equals("arriba")){
-            for(int i = coordenada.getX(); i > coordenada.getX() - coordenada.getLongitud(); i--){
-                if(comprobarOcupadas(i, coordenada.getX())){
-                    ocupada = true;
-                    repetidas.add(coordenada.getX() + "," + i);
-                }else{
-                    ocupada = false;
-                    ocupadas.add(i + "," + coordenada.getX());
-                    posicionesfinal = i + "," + coordenada.getX() + " ";
+            if (ocupada){
+                genenrarOrientacionDeBarcosAleatorios(barco);
+            }else{
+                barco.setPosicionFinal(posicionesfinal.toString());
+            }
+        }
+
+    public static void comprobarEstadoDelBarco(ArrayList<Barco> barcos, String posxy) {
+        boolean tiroAcertado;
+        String barcoPos;
+
+        System.out.println();
+        tiroAcertado = false;
+        for(int i = 0; i < barcos.size(); i++){
+            barcoPos = barcos.get(i).getPosicionFinal();
+            if(barcoPos.contains(posxy)){
+                tablero[posx][posy] = "";
+                System.out.println("Has tocado un barco");
+                tiroAcertado = true;
+                barcos.get(i).tocado(posx, posy);
+                if(barcos.get(i).posiciones() == barcos.get(i).getTamano()){
+                    System.out.println("HUNDIDO!. Has hundido un " + barcos.get(i).getNombre());
+                    barcosHundidos++;
+                    for(int j = 0; j < barcos.get(i).posicionesx.size(); j++){
+                        tablero[barcos.get(i).posicionesx.get(j)][barcos.get(i).posicionesy.get(j)] = "X";
+                    }
+                    barcos.remove(i);
                 }
             }
         }
-        if (ocupada){
-            genenrarOrientacionDeBarcosAleatorios(coordenada.getLongitud(), coordenada);
-        }else{
-            posfinal.add(posicionesfinal.toString());
+        if(!tiroAcertado){
+            System.out.println("Agua");
+            tablero[posx][posy] = "O";
         }
+        intentos++;
     }
+
     public static boolean comprobarOcupadas(int x, int o){
         return ocupadas.contains(x + "," + o) || ocupadas.contains(x + "," + o + ",") || ocupadas.contains(" " + x + "," + o + ",") || ocupadas.contains(" " + x + "," + o);
     }
@@ -271,5 +193,27 @@ genenrarOrientacionDeBarcosAleatorios
             case "h" -> 8;
             default -> 0;
         };
+    }
+/* void hayBarco(i,j)
+    for barcos
+        for coorendedas
+                x,y = i,j
+            haybarco
+    nohaybarco*/
+
+    public static void genenrarOrientacionDeBarcosAleatorios(Barco barco) {
+        int x = (int) (Math.random() * 8 + 1);
+        int y = (int) (Math.random() * 8 + 1);
+        String orientacion;
+            if (x < 4 && y < 4) {
+                orientacion = "derecha";
+            }else if (x < 4 && y > 4) {
+                orientacion = "abajo";
+            } else {
+                orientacion = "abajo";
+            }
+            coordenada = new Coordenadas(x, y, orientacion, barco.getTamano());
+            crearCoordenadasAlosBarco(barco);
+
     }
 }

@@ -7,13 +7,21 @@ import java.util.ArrayList;
 public class Barco {
     private String nombre;
     private int tamano;
-    private String posicion;
+    private int id;
+    private String posicionFinal;
+    public ArrayList<Coordenadas> listaDeCoordenadas = new ArrayList<Coordenadas>();
     public ArrayList<Integer> posicionesx = new ArrayList<Integer>();
     public ArrayList<Integer> posicionesy = new ArrayList<Integer>();
-    public Barco(int tamano,String nombre,String posicion) {
+    public Barco(int tamano, String nombre, int id) {
         this.tamano = tamano;
         this.nombre = nombre;
-        this.posicion=posicion;
+        this.id = id;
+    }
+
+    public Barco(String nombre, int tamano, ArrayList<Coordenadas> listaDeCoordenadas) {
+        this.nombre = nombre;
+        this.tamano = tamano;
+        this.listaDeCoordenadas = listaDeCoordenadas;
     }
 
     public String getNombre() {
@@ -32,19 +40,35 @@ public class Barco {
         this.tamano = tamano;
     }
 
-    public String getPosicion() {
-        return posicion;
-    }
-
-    public void setPosicion(String posicion) {
-        this.posicion = posicion;
-    }
-
     public int posiciones(){
         return this.posicionesx.size();
     }
 
-    public void tocado(int posX,int posY){
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPosicionFinal() {
+        return posicionFinal;
+    }
+
+    public void setPosicionFinal(String posicionFinal) {
+        this.posicionFinal = posicionFinal;
+    }
+
+    public ArrayList<Coordenadas> getListaDeCoordenadas() {
+        return listaDeCoordenadas;
+    }
+
+    public void setListaDeCoordenadas(ArrayList<Coordenadas> listaDeCoordenadas) {
+        this.listaDeCoordenadas = listaDeCoordenadas;
+    }
+
+    public void tocado(int posX, int posY){
         this.posicionesx.add(posX);
         this.posicionesy.add(posY);
     }
@@ -54,7 +78,7 @@ public class Barco {
         return "Barco{" +
                 "nombre='" + nombre + '\'' +
                 ", tamano=" + tamano +
-                ", posicion='" + posicion + '\'' +
+                ", id=" + id +
                 '}';
     }
 }

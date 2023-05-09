@@ -50,7 +50,7 @@ public class TresEnRaya {
                 finJuego = true;
             }
         }while (!finJuego);
-        if (comprobarGanador)
+        //if (comprobarGanador)
     }
 
     public static void inicializarTablero(char[][] tablero) {
@@ -80,14 +80,14 @@ public class TresEnRaya {
         return tablero[fila][columna] == '~';
     }
 
-    public static int comprobarGanador(char[][] tablero) {
+    /*public static int comprobarGanador(char[][] tablero) {
         if comprobarGanador("x")
         return 1;
         else if comprobarGanador("0")
         return -1;
         else
             return 0;
-    }
+    }*/
 
 
         public static boolean comprobarGanador(char[][] tablero, char ficha) {

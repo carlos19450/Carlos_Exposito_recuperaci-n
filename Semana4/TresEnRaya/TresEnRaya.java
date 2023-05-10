@@ -32,7 +32,7 @@ public class TresEnRaya {
             } else {
                 System.out.println("Turno de la máquina (O)");
                 do {
-                    //pensarJugada()
+                    //turnoDeLaMaquina(); Poda alfa-beta
                     fila = (int) (Math.random() * 3);
                     columna = (int) (Math.random() * 3);
                 } while (!movimientoValido(tablero, fila, columna));
@@ -75,9 +75,24 @@ public class TresEnRaya {
 
     public static boolean movimientoValido(char[][] tablero, int fila, int columna) {
         if (fila < 0 || fila >= tablero.length || columna < 0 || columna >= tablero[fila].length) {
+            System.out.println("Error. Ficha fuera del tablero.");
+            System.out.println();
             return false;
+        } else if (tablero[fila][columna] != '~') {
+            System.out.println("Error. La casilla ya está ocupada.");
+            System.out.println();
+            return false;
+        } else {
+            return true;
         }
-        return tablero[fila][columna] == '~';
+    }
+
+    public static void turnoDeLaMaquina(char[][] tablero) {
+        for (int i = 0; i < tablero.length; i++) {
+            for (int j  = 0; j < tablero[i].length; j++) {
+                tablero[i][j] = '~';
+            }
+        }
     }
 
     /*public static int comprobarGanador(char[][] tablero) {

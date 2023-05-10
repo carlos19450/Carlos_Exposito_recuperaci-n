@@ -88,10 +88,47 @@ public class TresEnRaya {
     }
 
     public static void turnoDeLaMaquina(char[][] tablero) {
+        boolean seguirComprobando = true;
+        int cont = 0;
         for (int i = 0; i < tablero.length; i++) {
-            for (int j  = 0; j < tablero[i].length; j++) {
-                tablero[i][j] = '~';
+            for (int j  = 0; j < tablero[0].length; j++) {
+                // PARA FACILITAR LA BUSQUEDA D FILAS COLUMNAS Y DIAGONEALES PUEDO PONERLES DE ID 1, 2, 3, 4, 5, 6, 7.
+                // PONER EN METODOS LO DE ABAJO  Y OTRO METODO PARA CUANDO ME DE LA FILA COLUMNA... BUENA, QUE ME DIGA LA CASILLA VACIA DE ESA.
+                
+                // COMPROBAR LAS X DE LAS FILA
+                if (tablero[i][j] == 'X') {
+                    cont++;
+                    if (cont == 2) {
+                        seguirComprobando = false;
+                        //MIRO DONDE ESTAN LAS 'X'
+                    }
+                }
+                // COMPROBAR LAS X DE LAS COLUMNAS
+                if (tablero[j][i] == 'X' && seguirComprobando) {
+                    cont++;
+                    if (cont == 2) {
+                        seguirComprobando = false;
+                        //MIRO DONDE ESTAN LAS 'X'
+                    }
+                }
+                // COMPROBAR LAS X DE LA DIAGONAL PRINCIPAL
+                if (tablero[j][i] == 'X' && seguirComprobando) {
+                    cont++;
+                    if (cont == 2) {
+                        seguirComprobando = false;
+                        //MIRO DONDE ESTAN LAS 'X'
+                    }
+                }
+                // COMPROBAR LAS X DE LA DIAGONAL SECUNDARIA
+                if (tablero[j][i] == 'X' && seguirComprobando) {
+                    cont++;
+                    if (cont == 2) {
+                        seguirComprobando = false;
+                        //MIRO DONDE ESTAN LAS 'X'
+                    }
+                }
             }
+            cont = 0;
         }
     }
 

@@ -61,6 +61,9 @@ public class Barco {
     }
 
     public ArrayList<Coordenadas> getListaDeCoordenadas() {
+        for (Coordenadas cord : this.listaDeCoordenadas) {
+            System.out.println(getId() + "= " + cord.getX() + " " + cord.getY());
+        }
         return listaDeCoordenadas;
     }
 

@@ -3,15 +3,16 @@ package HundirLaFlota;
 public class Coordenadas {
     private int x;
     private int y;
-    private String orientacion;
     private int longitud;
 
-    public Coordenadas() {
-    }
-    public Coordenadas(int x, int y, String orientacion, int longitud) {
+    public Coordenadas(int x, int y) {
         this.x = x;
         this.y = y;
-        this.orientacion = orientacion;
+    }
+
+    public Coordenadas(int x, int y, int longitud) {
+        this.x = x;
+        this.y = y;
         this.longitud = longitud;
     }
 
@@ -31,13 +32,6 @@ public class Coordenadas {
         this.y = y;
     }
 
-    public String getOrientacion() {
-        return orientacion;
-    }
-
-    public void setOrientacion(String orientacion) {
-        this.orientacion = orientacion;
-    }
 
     public int getLongitud() {
         return longitud;
@@ -52,7 +46,6 @@ public class Coordenadas {
         return "Coordenadas{" +
                 "x=" + x +
                 ", y=" + y +
-                ", orientacion='" + orientacion + '\'' +
                 ", longitud=" + longitud +
                 '}';
     }

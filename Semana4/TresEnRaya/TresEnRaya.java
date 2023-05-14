@@ -6,12 +6,11 @@ import java.util.Scanner;
 public class TresEnRaya {
     public static void main(String[] args) {
         char[][] tablero = new char[3][3];
-        String coordenada;
         Scanner sc = new Scanner(System.in);
         boolean finJuego = false;
         boolean turnoJugador = true;
-        int fila = 0;
-        int columna = 0;
+        int fila;
+        int columna;
 
         inicializarTablero(tablero);
         do{
@@ -55,7 +54,6 @@ public class TresEnRaya {
                 finJuego = true;
             }
         }while (!finJuego);
-        //if (comprobarGanador)
     }
 
     public static void inicializarTablero(char[][] tablero) {
@@ -96,9 +94,6 @@ public class TresEnRaya {
         boolean colocarFicha = false;
         for (int i = 0; i < tablero.length; i++) {
             for (int j  = 0; j < tablero[0].length; j++) {
-                // PARA FACILITAR LA BUSQUEDA D FILAS COLUMNAS Y DIAGONEALES PUEDO PONERLES DE ID 1, 2, 3, 4, 5, 6, 7.
-                // PONER EN METODOS LO DE ABAJO  Y OTRO METODO PARA CUANDO ME DE LA FILA COLUMNA... BUENA, QUE ME DIGA LA CASILLA VACIA DE ESA.
-
                 // COMPROBAR LAS X DE LAS FILA
                 colocarFicha = comprobarFilas(tablero);
                 if (colocarFicha) {
@@ -202,33 +197,26 @@ public class TresEnRaya {
         int cont = 0;
         int j = 2;
         for (int i = 0; i < tablero.length; i++) {
-                if (tablero[i][j--] == 'X' && seguirComprobando) {
-                    cont++;
-                    if (cont == 2) {
-                        seguirComprobando = false;
-                        //MIRO DONDE ESTAN LAS 'X'
-                        j = 2;
-                        for (int k = 0; k < tablero[0].length; k++) {
-                            if (tablero[k][j] == '~') {
-                                System.out.println("DiagonalS");
-                                tablero[k][j--] = 'O';
-                                colocarFicha = true;
-                            }
+            if (tablero[i][j] == 'X' && seguirComprobando) {
+                cont++;
+                if (cont == 2) {
+                    seguirComprobando = false;
+                    //MIRO DONDE ESTAN LAS 'X'
+                    j = 2;
+                    for (int k = 0; k < tablero[0].length; k++) {
+                        if (tablero[k][j] == '~') {
+                            System.out.println("DiagonalS");
+                            tablero[k][j--] = 'O';
+                            colocarFicha = true;
+                            System.out.println(j);
                         }
                     }
                 }
+            }
+            j--;
         }
         return colocarFicha;
     }
-    /*public static int comprobarGanador(char[][] tablero) {
-        if comprobarGanador("x")
-        return 1;
-        else if comprobarGanador("0")
-        return -1;
-        else
-            return 0;
-    }*/
-
 
     public static boolean comprobarGanador(char[][] tablero, char ficha) {
         // COMPROBAR FILA

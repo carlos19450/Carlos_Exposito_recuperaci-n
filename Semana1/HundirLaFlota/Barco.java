@@ -8,7 +8,6 @@ public class Barco {
     private String nombre;
     private int tamano;
     private int id;
-    private String posicionFinal;
     public ArrayList<Coordenadas> listaDeCoordenadas = new ArrayList<Coordenadas>();
     public ArrayList<Integer> posicionesx = new ArrayList<Integer>();
     public ArrayList<Integer> posicionesy = new ArrayList<Integer>();
@@ -16,12 +15,6 @@ public class Barco {
         this.tamano = tamano;
         this.nombre = nombre;
         this.id = id;
-    }
-
-    public Barco(String nombre, int tamano, ArrayList<Coordenadas> listaDeCoordenadas) {
-        this.nombre = nombre;
-        this.tamano = tamano;
-        this.listaDeCoordenadas = listaDeCoordenadas;
     }
 
     public String getNombre() {
@@ -40,7 +33,7 @@ public class Barco {
         this.tamano = tamano;
     }
 
-    public int posiciones(){
+    public int totalDeposiciones(){
         return this.posicionesx.size();
     }
 
@@ -52,15 +45,8 @@ public class Barco {
         this.id = id;
     }
 
-    public String getPosicionFinal() {
-        return posicionFinal;
-    }
-
-    public void setPosicionFinal(String posicionFinal) {
-        this.posicionFinal = posicionFinal;
-    }
-
     public ArrayList<Coordenadas> getListaDeCoordenadas() {
+        //PARA VER TODAS LAS COORDENADAS DE LAS 'X'
         for (Coordenadas cord : this.listaDeCoordenadas) {
             System.out.println(getId() + "= " + cord.getX() + " " + cord.getY());
         }
@@ -71,7 +57,7 @@ public class Barco {
         this.listaDeCoordenadas = listaDeCoordenadas;
     }
 
-    public void tocado(int posX, int posY){
+    public void posicionDeXtocadas(int posX, int posY){
         this.posicionesx.add(posX);
         this.posicionesy.add(posY);
     }

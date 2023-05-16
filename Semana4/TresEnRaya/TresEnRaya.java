@@ -8,14 +8,21 @@ public class TresEnRaya {
         char[][] tablero = new char[3][3];
         Scanner sc = new Scanner(System.in);
         boolean finJuego = false;
-        boolean turnoJugador = true;
         int fila;
         int columna;
 
         inicializarTablero(tablero);
         do{
             dibujarTablero(tablero);
-            if (turnoJugador) {
+            if (comprobarGanador(tablero, 'X')) {
+                dibujarTablero(tablero);
+                System.out.println("¡Has ganado!");
+                finJuego = true;
+            } else if (comprobarGanador(tablero, '0')){
+                dibujarTablero(tablero);
+                System.out.println("¡Has perdido!");
+                finJuego = true;
+            }else {
                 System.out.println("Es tu turno (X)");
                 do {
                     System.out.print("Fila (1-3): ");
@@ -24,13 +31,6 @@ public class TresEnRaya {
                     columna = sc.nextInt() - 1;
                 } while (!movimientoValido(tablero, fila, columna));
                 tablero[fila][columna] = 'X';
-                if (comprobarGanador(tablero, 'X')) {
-                    dibujarTablero(tablero);
-                    System.out.println("¡Has ganado!");
-                    finJuego = true;
-                }
-                turnoJugador = false;
-            } else {
                 System.out.println("Turno de la máquina (O)");
                 if (!turnoDeLaMaquina(tablero)) {
                     do {
@@ -41,12 +41,6 @@ public class TresEnRaya {
                         tablero[fila][columna] = 'O';
                     }
                 }
-                if (comprobarGanador(tablero, 'O')) {
-                    dibujarTablero(tablero);
-                    System.out.println("¡Has perdido!");
-                    finJuego = true;
-                }
-                turnoJugador = true;
             }
             if (!hayMovimientosPosibles(tablero)) {
                 dibujarTablero(tablero);
@@ -90,12 +84,25 @@ public class TresEnRaya {
         }
     }
 
-    public static boolean turnoDeLaMaquina(char[][] tablero) {
-        boolean colocarFicha = false;
-        for (int i = 0; i < tablero.length; i++) {
-            for (int j  = 0; j < tablero[0].length; j++) {
+    public static void turno() {
+        // si vaAGanar() // tiene dentro comprobarfilas/comprobarcolumnas/ y coloca la ficha muy parecido a turnodelamaquina
+        //if turnoDeLaMaquina(jugador)== 2 { // le cambias el nombre a la funcion buscarmejorjugada()
+            // jugada para defender;
+
+        // si no vaAGanar()
+        //} else {
+            //      buscoMejorJugada(bot) // -1 si esa fila / columna no se pueda completar 0 si esta vacia, 1 si ya hay una ficha mia, 2 si hay 2
+            // jugada {-1/0/1/2, i, j}
+            //jugar(1,2)
+        //}
+    }
+    public static boolean turnoDeLaMaquina(char[][] tablero) { // parametro char jugador, devuelva -1, 0, 1, 2
+        boolean colocarFicha;
                 // COMPROBAR LAS X DE LAS FILA
-                colocarFicha = comprobarFilas(tablero);
+                colocarFicha = comprobarFilas(tablero); //colocar ficha si el otro va a ganar
+
+        //
+
                 if (colocarFicha) {
                     return colocarFicha;
                 }
@@ -114,29 +121,23 @@ public class TresEnRaya {
                 if (colocarFicha) {
                     return colocarFicha;
                 }
-            }
-
-        }
         return colocarFicha;
     }
     public static boolean comprobarFilas(char[][] tablero) {
         boolean colocarFicha = false;
-        boolean seguirComprobando = true;
         int cont = 0;
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero[0].length; j++) {
-                if (tablero[i][j] == 'X' && seguirComprobando) {
+                if (tablero[i][j] == 'X') {
                     cont++;
-                    if (cont == 2) {
-                        seguirComprobando = false;
-                        //MIRO DONDE ESTAN LAS 'X'
-                        for (int k = 0; k < tablero[0].length; k++) {
-                            if (tablero[i][k] == '~') {
-                                System.out.println("Linea");
-                                tablero[i][k] = 'O';
-                                colocarFicha = true;
-                            }
-                        }
+                }
+            }
+            if (cont == 2) {
+                //MIRO DONDE ESTAN LAS 'X'
+                for (int k = 0; k < tablero[0].length; k++) {
+                    if (tablero[i][k] == '~') {
+                        tablero[i][k] = 'O';
+                        colocarFicha = true;
                     }
                 }
             }
@@ -146,22 +147,19 @@ public class TresEnRaya {
     }
     public static boolean comprobarColumnas(char[][] tablero) {
         boolean colocarFicha = false;
-        boolean seguirComprobando = true;
         int cont = 0;
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero[0].length; j++) {
-                if (tablero[j][i] == 'X' && seguirComprobando) {
+                if (tablero[j][i] == 'X') {
                     cont++;
-                    if (cont == 2) {
-                        seguirComprobando = false;
-                        //MIRO DONDE ESTAN LAS 'X'
-                        for (int k = 0; k < tablero[0].length; k++) {
-                            if (tablero[k][i] == '~') {
-                                System.out.println("Columna");
-                                tablero[k][i] = 'O';
-                                colocarFicha = true;
-                            }
-                        }
+                }
+            }
+            if (cont == 2) {
+                //MIRO DONDE ESTAN LAS 'X'
+                for (int k = 0; k < tablero[0].length; k++) {
+                    if (tablero[k][i] == '~') {
+                        tablero[k][i] = 'O';
+                        colocarFicha = true;
                     }
                 }
             }
@@ -171,21 +169,18 @@ public class TresEnRaya {
     }
     public static boolean comprobarDiagonalPrincipal(char[][] tablero) {
         boolean colocarFicha = false;
-        boolean seguirComprobando = true;
         int cont = 0;
         for (int i = 0; i < tablero.length; i++) {
-            if (tablero[i][i] == 'X' && seguirComprobando) {
+            if (tablero[i][i] == 'X') {
                 cont++;
-                if (cont == 2) {
-                    seguirComprobando = false;
-                    //MIRO DONDE ESTAN LAS 'X'
-                    for (int j = 0; j < tablero[0].length; j++) {
-                        if (tablero[j][j] == '~') {
-                            System.out.println("DiagonalP");
-                            tablero[j][j] = 'O';
-                            colocarFicha = true;
-                        }
-                    }
+            }
+        }
+        if (cont == 2) {
+            //MIRO DONDE ESTAN LAS 'X'
+            for (int j = 0; j < tablero[0].length; j++) {
+                if (tablero[j][j] == '~') {
+                    tablero[j][j] = 'O';
+                    colocarFicha = true;
                 }
             }
         }
@@ -193,28 +188,26 @@ public class TresEnRaya {
     }
     public static boolean comprobarDiagonalSecundaria(char[][] tablero) {
         boolean colocarFicha = false;
-        boolean seguirComprobando = true;
         int cont = 0;
         int j = 2;
         for (int i = 0; i < tablero.length; i++) {
-            if (tablero[i][j] == 'X' && seguirComprobando) {
+            if (tablero[i][j] == 'X') {
                 cont++;
-                if (cont == 2) {
-                    seguirComprobando = false;
-                    //MIRO DONDE ESTAN LAS 'X'
-                    j = 2;
-                    for (int k = 0; k < tablero[0].length; k++) {
-                        if (tablero[k][j] == '~') {
-                            System.out.println("DiagonalS");
-                            tablero[k][j--] = 'O';
-                            colocarFicha = true;
-                            System.out.println(j);
-                        }
-                    }
-                }
             }
             j--;
         }
+        if (cont == 2) {
+            //MIRO DONDE ESTAN LAS 'X'
+            j = 2;
+            for (int i = 0; i < tablero[0].length; i++) {
+                if (tablero[i][j] == '~') {
+                    tablero[i][j] = 'O';
+                    colocarFicha = true;
+                }
+                j--;
+            }
+        }
+
         return colocarFicha;
     }
 

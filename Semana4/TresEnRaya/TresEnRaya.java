@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class TresEnRaya {
+
     public static void main(String[] args) {
         char[][] tablero = new char[3][3];
         boolean finJuego = false;
@@ -65,11 +66,14 @@ public class TresEnRaya {
         // ATACAR = TRUE || DEFENDER = FALSE
         boolean atacarOdefender = false;
         int tipoDeJugada;
-        tipoDeJugada = buscarMejorJugadaParaLaMaquina(tablero, 'X');
+        tipoDeJugada = buscarMejorJugadaParaLaMaquina(tablero, 'X'); // devolver clase jugada: nivel. i,j
         //System.out.println("aaaa: " + tipoDeJugada);
         if (tipoDeJugada == 2) {
+            //tablero[jugada.i, jugada.j] = 'O';
             atacarOdefender = buscarMejorJugadaParaAtacar(tablero, 'X');
         }else if (tipoDeJugada == 1){
+            //buscarMejorJugada(tablero, '0');
+            //tablero[jugado.i, jugado.j] = '0';
             atacarOdefender = buscarMejorJugadaParaDefender(tablero, 'O');
         }
         return atacarOdefender;

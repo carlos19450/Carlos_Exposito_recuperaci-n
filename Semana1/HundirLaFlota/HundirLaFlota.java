@@ -156,18 +156,22 @@ public class HundirLaFlota {
     }
 
     public static void crearOrientacion(Barco barco) {
-        int x = (int) (Math.random() * 8 + 1);
-        int y = (int) (Math.random() * 8 + 1);
-        String orientacion;
-        if (x < 8 && y < 8) {
-            orientacion = "derecha";
-        }else {
-            orientacion = "abajo";
-        }
-        Coordenadas coordenada = new Coordenadas(x, y, barco.getTamano());
-        crearCoordenadasAlBarco(barco, orientacion, coordenada);
-    }
+        String orientacion = null;
+        int x;
+        int y;
+        do {
+            x = (int) (Math.random() * 8 + 1);
+            y = (int) (Math.random() * 8 + 1);
+            if (x < 8 && y < 8) {
+                orientacion = "derecha";
+            } else if (y > 1 && y < 5) {
+                orientacion = "abajo";
+            }
+        }while (orientacion == null);
+                Coordenadas coordenada = new Coordenadas(x, y, barco.getTamano());
+            crearCoordenadasAlBarco(barco, orientacion, coordenada);
 
+    }
     public static void disparar(ArrayList<Barco> barcos, String posxy) {
         boolean tiroAcertado = false;
         String barcoPos;

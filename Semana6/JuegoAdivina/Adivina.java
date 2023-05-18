@@ -7,9 +7,9 @@ public class Adivina {
     protected String pista;
     public void generarObjetoSecreto(){
         Random random = new Random();
-        int indice = random.nextInt(frutas.length);
-        objetoSecreto = frutas[indice];
-        pista = pistas[indice];
+        //int indice = random.nextInt(frutas.length);
+        //objetoSecreto = frutas[indice];
+        //pista = pistas[indice];
     }
 
     public void mostrarPista() {

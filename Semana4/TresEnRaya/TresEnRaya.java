@@ -1,6 +1,8 @@
 package TresEnRaya;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class TresEnRaya {
@@ -11,26 +13,30 @@ public class TresEnRaya {
 
 
         inicializarTablero(tablero);
-        do{
+        do {
             dibujarTablero(tablero);
+
             if (comprobarGanador(tablero, 'X')) {
                 System.out.println("¡Has ganado!");
                 finJuego = true;
-            } else if (comprobarGanador(tablero, 'O')){
+            } else if (comprobarGanador(tablero, 'O')) {
                 System.out.println("¡Has perdido!");
                 finJuego = true;
-            }else if (!hayMovimientosPosibles(tablero)){
-                System.out.println("¡Empate!");
-            }else {
+            } else {
                 turnoDelJugador(tablero);
-                turnoDeLaMaquina(tablero);
+
+                if (hayMovimientosPosibles(tablero)) turnoDeLaMaquina(tablero);
+                else {
+                    System.out.println("¡Empate!");
+                    finJuego = true;
+                }
             }
-        }while (!finJuego);
+        } while (!finJuego);
     }
 
     public static void inicializarTablero(char[][] tablero) {
         for (int i = 0; i < tablero.length; i++) {
-            for (int j  = 0; j < tablero[i].length; j++) {
+            for (int j = 0; j < tablero[i].length; j++) {
                 tablero[i][j] = '~';
             }
         }
@@ -51,7 +57,7 @@ public class TresEnRaya {
     public static boolean movimientoValido(char[][] tablero, int fila, int columna) {
         if (!hayMovimientosPosibles(tablero)) {
             return false;
-        }else {
+        } else {
             if (fila < 0 || fila >= tablero.length || columna < 0 || columna >= tablero[fila].length) {
                 System.out.println("Error. Ficha fuera del tablero.");
                 System.out.println();
@@ -73,22 +79,22 @@ public class TresEnRaya {
         jugada = buscarMejorJugada(tablero, 'O');
         if (jugada.getTipoDeJugada() == 2) {
             tablero[jugada.getFila()][jugada.getColumna()] = 'O';
-        }else {
-            jugada = buscarMejorJugada(tablero, 'X');
-            if (jugada.getTipoDeJugada() == 2) {
-                tablero[jugada.getFila()][jugada.getColumna()] = 'O';
-            }else {
-                jugada = buscarMejorJugada(tablero, 'O');
-                if (jugada.getTipoDeJugada() != 2){
-                    if (jugada.getTipoDeJugada() == 2) {
+        } else {
+            Jugada jugadaContrincante = buscarMejorJugada(tablero, 'X');
+            if (jugadaContrincante.getTipoDeJugada() == 2) {
+                tablero[jugadaContrincante.getFila()][jugadaContrincante.getColumna()] = 'O';
+            } else {
+                //jugada = buscarMejorJugada(tablero, 'O');
+                if (jugada.getTipoDeJugada() != 2) { // sobra
+                    if (jugada.getTipoDeJugada() == 2) { // Esto se va a ejecutar alguna vez?
                         tablero[jugada.getFila()][jugada.getColumna()] = 'O';
                     } else if (jugada.getTipoDeJugada() == 1) {
                         tablero[jugada.getFila()][jugada.getColumna()] = 'O';
-                    }else {
-                        do{
+                    } else {
+                        do {
                             fila = (int) (Math.random() * 3);
                             columna = (int) (Math.random() * 3);
-                        }while (!movimientoValido(tablero, fila, columna));
+                        } while (!movimientoValido(tablero, fila, columna));
                         tablero[fila][columna] = 'O';
                     }
                 }
@@ -97,35 +103,47 @@ public class TresEnRaya {
     }
 
     public static Jugada buscarMejorJugada(char[][] tablero, char tipoDeJugador) {
-        Jugada jugada;
-        jugada = calcularMejorJugadaDeFilas(tablero, tipoDeJugador);
-        if (jugada.getTipoDeJugada() == 2) {
+        List<Jugada> jugadas = new ArrayList<>();
+        Jugada mejorJugada;
+        jugadas.add(calcularMejorJugadaDeFilas(tablero, tipoDeJugador));
+        jugadas.add(calcularMejorJugadaDeColumnas(tablero, tipoDeJugador));
+        jugadas.add(calcularMejorJugadaDeDiagonalPrincipal(tablero, tipoDeJugador));
+        jugadas.add(calcularMejorJugadaDeDiagonalSecundaria(tablero, tipoDeJugador));
+        mejorJugada=jugadas.get(0);
+        for (Jugada jugada: jugadas) {
+            if (jugada.getTipoDeJugada() > mejorJugada.getTipoDeJugada()) {
+                mejorJugada = jugada;
+            }
+        }
+        return mejorJugada;
+
+        /*if (jugada.getTipoDeJugada() == 2) {
             return jugada;
-        }else {
+        } else {
             jugada = calcularMejorJugadaDeColumnas(tablero, tipoDeJugador);
             if (jugada.getTipoDeJugada() == 2) {
                 return jugada;
-            }else {
+            } else {
                 jugada = calcularMejorJugadaDeDiagonalPrincipal(tablero, tipoDeJugador);
                 if (jugada.getTipoDeJugada() == 2) {
                     return jugada;
-                }else {
+                } else {
                     jugada = calcularMejorJugadaDeDiagonalSecundaria(tablero, tipoDeJugador);
                     if (jugada.getTipoDeJugada() == 2) {
                         return jugada;
-                    }else {
+                    } else {
                         jugada = calcularMejorJugadaDeFilas(tablero, tipoDeJugador);
                         if (jugada.getTipoDeJugada() == 1) {
                             return jugada;
-                        }else {
+                        } else {
                             jugada = calcularMejorJugadaDeColumnas(tablero, tipoDeJugador);
                             if (jugada.getTipoDeJugada() == 1) {
                                 return jugada;
-                            }else {
+                            } else {
                                 jugada = calcularMejorJugadaDeDiagonalPrincipal(tablero, tipoDeJugador);
                                 if (jugada.getTipoDeJugada() == 1) {
                                     return jugada;
-                                }else {
+                                } else {
                                     jugada = calcularMejorJugadaDeDiagonalSecundaria(tablero, tipoDeJugador);
                                     if (jugada.getTipoDeJugada() == 1) {
                                         return jugada;
@@ -137,7 +155,7 @@ public class TresEnRaya {
                 }
             }
         }
-        return jugada;
+        return jugada;*/
     }
 
     public static Jugada calcularMejorJugadaDeFilas(char[][] tablero, char tipoDeJugador) {
@@ -164,8 +182,9 @@ public class TresEnRaya {
         }
         return jugada;
     }
+
     public static Jugada calcularMejorJugadaDeColumnas(char[][] tablero, char tipoDeJugador) {
-        Jugada jugada = new Jugada();
+        Jugada jugada = new Jugada(); // no usar variable mejorjugada y usar jugada.getTipoJugada() esto vale para todas
         int mejorJugada = 0;
         int contarFichas = 0;
         for (int i = 0; i < tablero.length; i++) {
@@ -174,7 +193,7 @@ public class TresEnRaya {
                     contarFichas++;
                 }
             }
-            if (contarFichas > mejorJugada) {
+            if (contarFichas > mejorJugada) { // limpiarlo un poco
                 mejorJugada = contarFichas;
                 for (int j = 0; j < tablero[0].length; j++) {
                     if (tablero[j][i] == '~') {
@@ -188,6 +207,7 @@ public class TresEnRaya {
         }
         return jugada;
     }
+
     public static Jugada calcularMejorJugadaDeDiagonalPrincipal(char[][] tablero, char tipoDeJugador) {
         Jugada jugada = new Jugada();
         int mejorJugada = 0;
@@ -209,6 +229,7 @@ public class TresEnRaya {
         }
         return jugada;
     }
+
     public static Jugada calcularMejorJugadaDeDiagonalSecundaria(char[][] tablero, char tipoDeJugador) {
         Jugada jugada = new Jugada();
         int mejorJugada = 0;
@@ -236,6 +257,8 @@ public class TresEnRaya {
     }
 
     public static boolean comprobarGanador(char[][] tablero, char ficha) {
+        // menos returns sólo 1
+
         // COMPROBAR FILA
         for (int i = 0; i < tablero.length; i++) {
             if (tablero[i][0] == ficha && tablero[i][1] == ficha && tablero[i][2] == ficha) {

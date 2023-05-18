@@ -1,7 +1,7 @@
 package TresEnRaya;
 
 public class Jugada {
-    private int tipoDeJugada;
+    private int tipoDeJugada = -1;
     private int fila;
     private int columna;
 

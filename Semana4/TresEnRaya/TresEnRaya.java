@@ -96,7 +96,7 @@ public class TresEnRaya {
         }
     }
 
-    public static Jugada buscarMejorJugada(char[][] tablero, char tipoDeJugador) { // parametro char jugador, devuelva -1, 0, 1, 2
+    public static Jugada buscarMejorJugada(char[][] tablero, char tipoDeJugador) {
         Jugada jugada;
         jugada = calcularMejorJugadaDeFilas(tablero, tipoDeJugador);
         if (jugada.getTipoDeJugada() == 2) {

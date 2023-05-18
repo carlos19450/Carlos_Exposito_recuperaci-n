@@ -47,9 +47,9 @@ public class Barco {
 
     public ArrayList<Coordenadas> getListaDeCoordenadas() {
         //PARA VER TODAS LAS COORDENADAS DE LAS 'X'
-        for (Coordenadas cord : this.listaDeCoordenadas) {
-            System.out.println(getId() + "= " + cord.getX() + " " + cord.getY());
-        }
+        //for (Coordenadas cord : this.listaDeCoordenadas) {
+        //    System.out.println(getId() + "= " + cord.getX() + " " + cord.getY());
+        //}
         return listaDeCoordenadas;
     }
 

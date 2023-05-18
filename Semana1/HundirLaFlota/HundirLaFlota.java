@@ -6,8 +6,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class HundirLaFlota {
-    public static ArrayList<String> ocupadas = new ArrayList<String>();
-    public static ArrayList<String> repetidas = new ArrayList<String>();
     public static String[][] tablero = new String[9][9];
     public static int posx;
     public static int posy;
@@ -23,7 +21,7 @@ public class HundirLaFlota {
         do {
             System.out.println("SHOOTS: " + intentos);
             System.out.println("SUNK SHIPS: " + barcosHundidos);
-            mostrarTablero(barcos);
+            mostrarTablero();
             hacerTurno(barcos);
         } while (barcosHundidos != 10);
         System.out.println();
@@ -65,31 +63,22 @@ public class HundirLaFlota {
         Barco barco;
         barco = new Barco(4, "Portaavion", id++);
 
-        /*
-        Debes hacer algo asi cada vez que creaOrientacion pero en un meodo nuevo
-        Coordenadas coordenada = new Coordenadas(x, y, barco.getTamano());
-        crearCoordenadasAlBarco(barco, orientacion, coordenada);
-        while (!comprobarSiCoordenadasBarcoLibres(barco)) {
-            crearCoordenadasAlBarco(barco, orientacion, coordenada);
-        }
-        introducirBarcoEnTablero(barco);*/
-
-        crearOrientacion(barco);
+        colocarCoordenadasDelBarcoAlTablero(barco);
         barcos.add(barco);
 
         for (int i = 0; i < 2; i++) {
             barco = new Barco(3, "Acorazado", id++);
-            crearOrientacion(barco);
+            colocarCoordenadasDelBarcoAlTablero(barco);
             barcos.add(barco);
         }
         for (int i = 0; i < 3; i++) {
             barco = new Barco(2, "Buque", id++);
-            crearOrientacion(barco);
+            colocarCoordenadasDelBarcoAlTablero(barco);
             barcos.add(barco);
         }
         for (int i = 0; i < 4; i++) {
             barco = new Barco(1, "Submarino", id++);
-            crearOrientacion(barco);
+            colocarCoordenadasDelBarcoAlTablero(barco);
             barcos.add(barco);
         }
         //PARA VER TODAS LAS COORDENADAS DE LAS 'X'
@@ -98,8 +87,7 @@ public class HundirLaFlota {
         }*/
     }
 
-    public static void mostrarTablero(ArrayList<Barco> barcos) {
-
+    public static void mostrarTablero() {
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero[0].length; j++) {
                 System.out.print(tablero[i][j] + "    ");
@@ -135,10 +123,7 @@ public class HundirLaFlota {
             }
         }
     }
-
     public static void crearCoordenadasAlBarco(Barco barco, String orientacion, Coordenadas coordenada) {
-        boolean ocupada = false;
-
         if (orientacion.equals("derecha")) {
             for (int i = coordenada.getY(); i < coordenada.getY() + coordenada.getLongitud(); i++) {
                 for (int j = 0; j < tablero[0].length; j++) {
@@ -146,25 +131,37 @@ public class HundirLaFlota {
                 }
             }
         }
+        if (orientacion.equals("abajo")) {
+            for (int i = coordenada.getX(); i < coordenada.getX() + coordenada.getLongitud(); i++) {
+                for (int j = 0; j < tablero[0].length; j++) {
+                    barco.listaDeCoordenadas.add(new Coordenadas(i, coordenada.getX()));
+                }
+            }
+        }
     }
-
-    public static void crearOrientacion(Barco barco) { // cambiar nombre está posicionando las coordenadas de un barco, esta colocando un barco en el tablero
-        String orientacion = null;
+    public static void colocarCoordenadasDelBarcoAlTablero(Barco barco) { // cambiar nombre está posicionando las coordenadas de un barco, esta colocando un barco en el tablero
+        String orientacion;
         Random random = new Random();
         int x, y;
-        //if ((random.nextInt(2)) == 0) {
-        orientacion = "derecha";
-        x = random.nextInt(8 - barco.getTamano() + 1) + 1;
-        y = random.nextInt(8) + 1;
-        //} else {
-        //  orientacion = "abajo";
-        // lo mismo que arriba pero la x por la y
-        //}
-
-        //System.out.println("barco creado");
-        //System.out.println(barco.listaDeCoordenadas);
+        if ((random.nextInt(2)) == 0) {
+            orientacion = "derecha";
+            x = random.nextInt(8 - barco.getTamano() + 1) + 1;
+            y = random.nextInt(8) + 1;
+        } else {
+            orientacion = "abajo";
+            x = random.nextInt(8) + 1;
+            y = random.nextInt(8 - barco.getTamano() + 1) + 1;
+        }
+        crearCoordenadas(barco, x, y, orientacion);
     }
-
+    public static void crearCoordenadas(Barco barco, int x, int y, String orientacion) {
+        Coordenadas coordenada = new Coordenadas(x, y, barco.getTamano());
+        crearCoordenadasAlBarco(barco, orientacion, coordenada);
+        while (!comprobarSiCoordenadasBarcoLibres(barco)) {
+            crearCoordenadasAlBarco(barco, orientacion, coordenada);
+        }
+        introducirBarcoEnTablero(barco);
+    }
     public static boolean comprobarSiCoordenadasBarcoLibres(Barco barco) {
         boolean estanLibres = true;
         for (Coordenadas coordenada : barco.getListaDeCoordenadas()) {
@@ -176,14 +173,10 @@ public class HundirLaFlota {
         return estanLibres;
     }
     public static void introducirBarcoEnTablero(Barco barco) {
-        boolean estanLibres = true;dispararBarco
         for (Coordenadas coordenada: barco.getListaDeCoordenadas()) {
-            //System.out.println(barco);
             tablero[coordenada.getX()][coordenada.getY()] = String.valueOf(barco.getId());
         }
     }
-
-
     public static void disparar(ArrayList<Barco> barcos, String posxy) {
 
         // no hay un barco -> pon una 0 en la posicion disparada
@@ -217,11 +210,6 @@ public class HundirLaFlota {
         }
         intentos++;
     }
-
-    public static boolean comprobarOcupadas(int x, int o) {
-        return ocupadas.contains(x + "," + o) || ocupadas.contains(x + "," + o + ",") || ocupadas.contains(" " + x + "," + o + ",") || ocupadas.contains(" " + x + "," + o);
-    }
-
     public static int esLetraCorrecta(String user) {
         return switch (user.substring(0, 1).toLowerCase()) {
             case "a" -> 1;

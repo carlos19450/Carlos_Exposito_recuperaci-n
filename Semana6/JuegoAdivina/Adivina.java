@@ -5,11 +5,13 @@ import java.util.Random;
 public class Adivina {
     protected String objetoSecreto;
     protected String pista;
+    protected String[] objetosSecretos;
+    protected String[] pistas;
     public void generarObjetoSecreto(){
         Random random = new Random();
-        //int indice = random.nextInt(frutas.length);
-        //objetoSecreto = frutas[indice];
-        //pista = pistas[indice];
+        int indice = random.nextInt(objetosSecretos.length);
+        objetoSecreto = objetosSecretos[indice];
+        pista = pistas[indice];
     }
 
     public void mostrarPista() {

@@ -61,13 +61,16 @@ public abstract class Adivina {
         setPuntos(getPuntos() - 1);
     }
 
-    public void adivinarObjetoSecreto(String objeto) {
+    public boolean adivinarObjetoSecreto(String objeto) {
+        boolean adivinado = false;
         if (objeto.equalsIgnoreCase(objetoSecreto)) {
+            adivinado = true;
             System.out.println("¡Felicidades! ¡Has adivinado el objeto secreto!");
         } else {
             System.out.println("Lo siento, no has adivinado el objeto secreto. ¡Inténtalo de nuevo!\n");
             setPuntos(getPuntos() / 2);
         }
+        return adivinado;
     }
 
     public abstract String[] getObjetosSecretosHeredados();

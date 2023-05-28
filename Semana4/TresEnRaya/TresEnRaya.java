@@ -15,7 +15,6 @@ public class TresEnRaya {
         inicializarTablero(tablero);
         do {
             dibujarTablero(tablero);
-
             if (comprobarGanador(tablero, 'X')) {
                 System.out.println("¡Has ganado!");
                 finJuego = true;

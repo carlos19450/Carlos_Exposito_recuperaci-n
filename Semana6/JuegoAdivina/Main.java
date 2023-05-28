@@ -47,7 +47,7 @@ public class Main {
         do {
             jugar = true;
             System.out.print("""
-                    Intenta adivinar el objeto\s
+                    Intenta adivinar el equipo\s
                     Puedes pedir una pista introduciendo la palabra 'pista'
                     Introducir:\s""");
             respuesta = scanner.nextLine();

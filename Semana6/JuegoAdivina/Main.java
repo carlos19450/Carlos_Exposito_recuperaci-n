@@ -8,10 +8,10 @@ public class Main {
         System.out.print("""
                 ¡Bienvenido a ¡Adivina!\s
                 Selecciona el modo de juego:
-                1. Modo Animales
-                2. Modo Frutas
-                3. Modo Famosos
-                4. Modo Videojuegos
+                1. Modo Animales, advivina los animales.
+                2. Modo Frutas, adivina las frutas.
+                3. Modo Famosos, adivina los famosos.
+                4. Modo Videojuegos, adivina el género del videojuego.
                 Introducir:\s""");
         System.out.print("");
         juego = elegirModoDeJuego();

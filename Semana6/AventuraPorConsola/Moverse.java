@@ -1,13 +1,30 @@
 package AventuraPorConsola;
 
 public class Moverse extends Habilidad{
-private String direccion;
+    private String direccion;
+    private Zona[][] tablero;
 
-    public Moverse(String direccion) {
+    public Moverse(String direccion, Zona[][] tablero) {
         super("Movimiento");
+        this.direccion = direccion;
+        this.tablero = tablero;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
 
+    public Zona[][] getTablero() {
+        return tablero;
+    }
+
+    public void setTablero(Zona[][] tablero) {
+        this.tablero = tablero;
+    }
 
     @Override
     public void moverse(Personaje personaje) {

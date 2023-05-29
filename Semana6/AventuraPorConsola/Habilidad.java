@@ -7,6 +7,14 @@ public class Habilidad {
                 this.tipo = tipo;
         }
 
+        public String getTipo() {
+                return tipo;
+        }
+
+        public void setTipo(String tipo) {
+                this.tipo = tipo;
+        }
+
         public void aplicarEfecto(Personaje personaje) {
         }
 
@@ -14,6 +22,9 @@ public class Habilidad {
         }
 
         public void moverse(Personaje personaje) {
+        }
+
+        public void explorarZona(Personaje personaje) {
         }
 
         @Override

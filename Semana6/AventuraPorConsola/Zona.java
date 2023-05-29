@@ -1,33 +1,17 @@
 package AventuraPorConsola;
 
 public class Zona {
-    private int x;
-    private int y;
     private Personaje jugador;
     private Enemigo enemigo;
+    private Equipo equipo;
 
     public Zona() {
     }
 
-    public Zona(int x, int y, Personaje jugador, Enemigo enemigo) {
+    public Zona(Personaje jugador, Enemigo enemigo, Equipo equipo) {
         this.jugador = jugador;
         this.enemigo = enemigo;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
+        this.equipo = equipo;
     }
 
     public Personaje getJugador() {
@@ -46,24 +30,42 @@ public class Zona {
         this.enemigo = enemigo;
     }
 
-    public String getDatos() {
-        if (jugador != null) {
-            return jugador.toString();
-        } else if (enemigo != null) {
-            return enemigo.toString();
+    public Equipo getEquipo() {
+        return equipo;
+    }
+
+    public void setEquipo(Equipo equipo) {
+        this.equipo = equipo;
+    }
+
+    public boolean hayObjeto() {
+        if (enemigo != null) {
+            return true;
+        } else return equipo != null;
+    }
+
+    public String devolverDescripcion() {
+        if (enemigo != null) {
+            return enemigo.getDescripcion();
+        } else if (equipo != null) {
+            return equipo.getDescripcion();
         } else {
-            return "";
+            return "Parece que en esta zona no hay nada...";
         }
     }
 
     @Override
     public String toString() {
+        String  id;
         if (jugador != null) {
-            return jugador.getId(); // Símbolo para representar un objeto en la zona
+            id = jugador.getId();
         } else if (enemigo != null) {
-            return enemigo.getId(); // Símbolo para representar un enemigo en la zona
+            id = enemigo.getId();
+        } else if (equipo != null) {
+            id = equipo.getId();
         } else {
-            return "~"; // Símbolo para representar una zona vacía
+            id = "~";
         }
+        return id;
     }
 }

@@ -16,7 +16,9 @@ public class Personaje {
     private List<Equipo> equipo;
     private List<Habilidad> habilidades;
 
-    public Personaje(String nombre, int nivel, int saludTotal, int defensa, int fuerza) {
+    public Personaje(int x, int y, String nombre, int nivel, int saludTotal, int defensa, int fuerza) {
+        this.posicionX = x;
+        this.posicionY = y;
         this.id = "1";
         this.nombre = nombre;
         this.nivel = nivel;
@@ -133,8 +135,11 @@ public class Personaje {
     }
 
     public void moverse(Habilidad moverse) {
-        this.habilidades.add(moverse);
         moverse.moverse(this);
+    }
+
+    public void explorar(Habilidad explorar) {
+        explorar.explorarZona(this);
     }
 
     public void atacar(Enemigo enemigo) {
@@ -161,12 +166,16 @@ public class Personaje {
 
     @Override
     public String toString() {
-        return "Nombre: " + nombre +
-                "\nNivel: " + nivel +
-                "\nSalud: " + saludRestante + "/" + saludTotal +
-                "\nDefensa: " + defensa +
-                "\nFuerza: " + fuerza +
-                "\nEquipo: " + equipo +
-                "\nHabilidades: " + habilidades;
+        return "Personaje{" +
+                "id='" + id + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", nivel=" + nivel +
+                ", saludTotal=" + saludTotal +
+                ", saludRestante=" + saludRestante +
+                ", defensa=" + defensa +
+                ", fuerza=" + fuerza +
+                ", posicionX=" + posicionX +
+                ", posicionY=" + posicionY +
+                '}';
     }
 }

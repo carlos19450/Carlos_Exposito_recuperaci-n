@@ -134,7 +134,7 @@ public class Personaje {
         habilidad.quitarEfecto(this);
     }
 
-    public void moverse(Habilidad moverse) {
+    public void moverse(Moverse moverse) {
         moverse.moverse(this);
     }
 

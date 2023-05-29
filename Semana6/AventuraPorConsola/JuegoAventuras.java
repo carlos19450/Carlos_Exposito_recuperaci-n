@@ -11,29 +11,6 @@ public class JuegoAventuras {
         System.out.println("¡Bienvenido al juego de aventuras!\n" +
                 "¡Encuentra y mata al BOSS final para salvar al mundo!");
         do {
-            /*
-            // Crear objetos y enemigos
-
-            Equipo arma = new Arma("Espada", 15);
-            Equipo escudo = new Escudo("Escudo", 10);
-            //Objeto armadura = new Armadura("Escudo", 10);
-            // Añadir objetos al equipo del jugador
-            jugador.agregarObjeto(arma);
-            jugador.agregarObjeto(escudo);
-            //jugador.agregarObjeto(armadura);
-            // Mostrar información del jugador
-            System.out.println(jugador);
-            System.out.println();
-            // Quitar un objeto del equipo del personaje
-            jugador.quitarObjeto(arma);
-            jugador.quitarObjeto(escudo);
-            // Mostrar detalles del personaje después de quitar un objeto
-            System.out.println(jugador);
-            System.out.println();
-            // Atacar al enemigo
-            jugador.atacar(boss);
-            //Mostrar detalles del enemigo
-            System.out.println(boss);*/
             turnoDelJugador(tablero, jugador);
         }while (boss.getSalud() > 0);
 
@@ -155,7 +132,8 @@ public class JuegoAventuras {
     }
 
     public static boolean moverse(String[] arrayDeRespuestas, Personaje jugador) {
-        Habilidad moverse = new Moverse(arrayDeRespuestas[1]);
+        Moverse moverse = new Moverse(arrayDeRespuestas[1]);
+        //
         jugador.moverse(moverse);
         return true;
     }

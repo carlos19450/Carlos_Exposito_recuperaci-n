@@ -23,7 +23,8 @@ public class Habilidad {
 
         public void moverse(Personaje personaje) {
         }
-
+        //abstract realizarAccion()
+        //abstract puedoRealizarAccion()
         public void explorarZona(Personaje personaje) {
         }
 

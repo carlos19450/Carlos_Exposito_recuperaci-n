@@ -1,17 +1,18 @@
 package AventuraPorConsola;
 
+import java.util.Objects;
+
 public class Zona {
     private Personaje jugador;
     private Enemigo enemigo;
     private Equipo equipo;
+    Entidad entidad;
 
     public Zona() {
-    }
 
-    public Zona(Personaje jugador, Enemigo enemigo, Equipo equipo) {
-        this.jugador = jugador;
-        this.enemigo = enemigo;
-        this.equipo = equipo;
+    }
+    public Zona(Entidad entidad) {
+        this.entidad = entidad;
     }
 
     public Personaje getJugador() {
@@ -56,14 +57,10 @@ public class Zona {
 
     @Override
     public String toString() {
-        String  id;
-        if (jugador != null) {
-            id = jugador.getId();
-        } else if (enemigo != null) {
-            id = enemigo.getId();
-        } else if (equipo != null) {
-            id = equipo.getId();
-        } else {
+        String id;
+        if (entidad != null) {
+            id = entidad.getId();
+        }else {
             id = "~";
         }
         return id;

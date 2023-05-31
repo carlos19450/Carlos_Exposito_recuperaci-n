@@ -4,34 +4,34 @@ import java.util.Scanner;
 
 public class JuegoAventuras {
     public static void main(String[] args) {
-        Enemigo boss = new Enemigo("≠", "Dragon", 1, 50, 5, "¡CUIDADO! ¡Parece un enemigo muy peligroso!");
         Personaje jugador = new Personaje(3, 2, "Jugador", 1, 100, 0, 10);
         Zona[][] tablero = new Zona[4][5];
-        inicializarTablero(tablero, boss, jugador);
+        inicializarTablero(tablero);
         System.out.println("¡Bienvenido al juego de aventuras!\n" +
                 "¡Encuentra y mata al BOSS final para salvar al mundo!");
         do {
             turnoDelJugador(tablero, jugador);
-        }while (boss.getSalud() > 0);
+        }while (tablero[0][2].equals(null));
 
     }
 
-    public static void inicializarTablero(Zona[][] tablero, Enemigo boss, Personaje jugador) {
+    public static void inicializarTablero(Zona[][] tablero) {
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero[i].length; j++) {
-                tablero[i][j] = new Zona(null, null, null);
+                tablero[i][j] = new Zona();
             }
         }
-        meterObjetosEnTablero(tablero, boss, jugador);
+        meterObjetosEnTablero(tablero);
     }
 
-    public static void meterObjetosEnTablero(Zona[][] tablero, Enemigo boss, Personaje jugador) {
-        Equipo arma = new Arma("!", "Espada", 15, "una espada afilada con una grand piedra roja y brillante.");
-        Equipo escudo = new Escudo("O", "Escudo", 10, "un escudo blindado de platino.");
-        tablero[0][2] = new Zona(null, boss, null);
-        tablero[3][2] = new Zona(jugador, null, null);
-        tablero[2][1] = new Zona(null, null, arma);
-        tablero[3][4] = new Zona(null, null, escudo);
+    public static void meterObjetosEnTablero(Zona[][] tablero) {
+        Entidad arma = new Arma("!", "Espada", 15, "una espada afilada con una grand piedra roja y brillante.");
+        Entidad escudo = new Escudo("O", "Escudo", 10, "un escudo blindado de platino.");
+        Entidad boss = new Enemigo("≠", "Dragon", 1, 50, 5, "¡CUIDADO! ¡Parece un enemigo muy peligroso!");
+
+        tablero[0][2] = new Zona(boss);
+        tablero[2][1] = new Zona(arma);
+        tablero[3][4] = new Zona(escudo);
     }
 
     public static void turnoDelJugador(Zona[][] tablero, Personaje jugador) {
@@ -42,7 +42,7 @@ public class JuegoAventuras {
         Zona zona = new Zona();
         String accion;
         do {
-            dibujarTablero(tablero);
+            dibujarTablero(tablero, jugador);
             System.out.print("> ");
             accion = sc.nextLine();
             arrayDeRespuestas = accion.split(" ");
@@ -75,10 +75,15 @@ public class JuegoAventuras {
         System.out.println(jugador);
     }
 
-    public static void dibujarTablero(Zona[][] tablero) {
+    public static void dibujarTablero(Zona[][] tablero, Personaje jugador) {
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero[i].length; j++) {
-                System.out.print(tablero[i][j] + " ");
+                if (jugador.getPosicionX() == i && jugador.getPosicionY() == j) {
+                    System.out.print(jugador.getId() + " ");
+                } else {
+                    System.out.print(tablero[i][j] + " ");
+                }
+
             }
             System.out.println();
         }

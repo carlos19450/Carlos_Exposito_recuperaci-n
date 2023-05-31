@@ -1,16 +1,13 @@
 package AventuraPorConsola;
 
-public class Equipo extends Entidad{
+public class Entidad {
     private final String id;
     private String nombre;
-    private String tipo;
     private String descripcion;
 
-    public Equipo(String id, String nombre, String tipo, String descripcion) {
-        super(id, nombre, descripcion);
-        this.nombre = nombre;
-        this.tipo = tipo;
+    public Entidad(String id, String nombre, String descripcion) {
         this.id = id;
+        this.nombre = nombre;
         this.descripcion = descripcion;
     }
 
@@ -26,20 +23,6 @@ public class Equipo extends Entidad{
         this.nombre = nombre;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public void aplicarEfecto(Personaje personaje) {
-    }
-
-    public void quitarEfecto(Personaje personaje) {
-    }
-
     public String getDescripcion() {
         return descripcion;
     }
@@ -50,10 +33,9 @@ public class Equipo extends Entidad{
 
     @Override
     public String toString() {
-        return "Equipo{" +
+        return "Entidad{" +
                 "id='" + id + '\'' +
                 ", nombre='" + nombre + '\'' +
-                ", tipo='" + tipo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 '}';
     }

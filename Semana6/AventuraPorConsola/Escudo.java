@@ -1,7 +1,7 @@
 package AventuraPorConsola;
 
 public class Escudo extends Equipo {
-    private String id;
+    private final String id;
     private int defensa;
     private String descripcion;
 
@@ -14,10 +14,6 @@ public class Escudo extends Equipo {
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public int getDefensa() {

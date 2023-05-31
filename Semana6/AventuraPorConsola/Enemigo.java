@@ -3,7 +3,7 @@ package AventuraPorConsola;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Enemigo {
+public class Enemigo extends Entidad{
     private final String id;
     private String nombre;
     private int nivel;
@@ -12,6 +12,7 @@ public class Enemigo {
     private int dano;
     private String descripcion;
     public Enemigo(String id, String nombre, int nivel, int salud, int dano, String descripcion) {
+        super(id, nombre, descripcion);
         this.nombre = nombre;
         this.nivel = nivel;
         this.salud = salud;

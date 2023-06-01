@@ -47,6 +47,12 @@ public class JuegoAventuras {
             accion = sc.nextLine();
             arrayDeRespuestas = accion.split(" ");
             if (arrayDeRespuestas[0].equalsIgnoreCase("mover")) {
+                //COMANDO
+                // MIRAR LISTA HABILIDADES DEL JUGADOR
+                // SI EXISTE
+                // Habilidad accion = null;
+                // IFS PARA CADA COMANDO accion = NEW Moverse()
+                // accion.realizarAccion()
                 if (validarAccion(arrayDeRespuestas)) {
                     zona = calcularCoordenadasAnteriores(tablero, coordenadaXYanteriores, zona);
                     if (calcularSiElMovimientoEsValido(jugador.getPosicionX(), jugador.getPosicionY(), arrayDeRespuestas[1])) {
@@ -73,6 +79,12 @@ public class JuegoAventuras {
         // PASO LA ZONA ANTERIOR QUE TENIA MI PERSONAJE A LA NUEVA ZONA
         tablero[jugador.getPosicionX()][jugador.getPosicionY()] = zona;
         System.out.println(jugador);
+
+        /// PRINT
+        //// FOR
+        ////       FOR
+        ////
+
     }
 
     public static void dibujarTablero(Zona[][] tablero, Personaje jugador) {
@@ -83,7 +95,6 @@ public class JuegoAventuras {
                 } else {
                     System.out.print(tablero[i][j] + " ");
                 }
-
             }
             System.out.println();
         }
@@ -137,9 +148,8 @@ public class JuegoAventuras {
     }
 
     public static boolean moverse(String[] arrayDeRespuestas, Personaje jugador) {
-        Moverse moverse = new Moverse(arrayDeRespuestas[1]);
-        //
-        jugador.moverse(moverse);
+        Habilidad moverse = new Moverse(jugador, arrayDeRespuestas[1]);
+        moverse.realizarAccion();
         return true;
     }
 

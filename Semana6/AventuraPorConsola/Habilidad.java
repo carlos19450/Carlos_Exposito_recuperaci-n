@@ -1,6 +1,7 @@
 package AventuraPorConsola;
 
-public class Habilidad {
+public abstract class Habilidad {
+        protected String comando;
         private String tipo;
 
         public Habilidad(String tipo) {
@@ -15,19 +16,13 @@ public class Habilidad {
                 this.tipo = tipo;
         }
 
-        public void aplicarEfecto(Personaje personaje) {
-        }
 
-        public void quitarEfecto(Personaje personaje) {
-        }
 
-        public void moverse(Personaje personaje) {
-        }
-        //abstract realizarAccion()
         //abstract puedoRealizarAccion()
         public void explorarZona(Personaje personaje) {
         }
 
+        public abstract String realizarAccion();
         @Override
         public String toString() {
                 return "Habilidad{" +

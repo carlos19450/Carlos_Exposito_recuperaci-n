@@ -126,26 +126,10 @@ public class Personaje {
 
     public void agregarHabilidad(Habilidad habilidad) {
         this.habilidades.add(habilidad);
-        habilidad.aplicarEfecto(this);
     }
 
     public void quitarHabilidad(Habilidad habilidad) {
         this.habilidades.remove(habilidad);
-        habilidad.quitarEfecto(this);
-    }
-
-    public void moverse(Moverse moverse) {
-        moverse.moverse(this);
-    }
-
-    public void explorar(Habilidad explorar) {
-        explorar.explorarZona(this);
-    }
-
-    public void atacar(Enemigo enemigo) {
-        // Lógica para atacar a un enemigo
-        System.out.println("Has atacado al enemigo: " + enemigo.getNombre());
-        enemigo.setSalud(enemigo.getSalud() - this.fuerza);
     }
 
     public void aumentarFuerza(int danio) {

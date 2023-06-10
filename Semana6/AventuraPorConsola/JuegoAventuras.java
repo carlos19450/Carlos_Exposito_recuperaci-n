@@ -1,18 +1,29 @@
 package AventuraPorConsola;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class JuegoAventuras {
     public static void main(String[] args) {
-        Personaje jugador = new Personaje(3, 2, "Jugador", 1, 100, 0, 10);
+        boolean seguirJugando = true;
+        Personaje jugador = new Personaje(3, 2, "Jugador", 1, 50, 0, 10);
         Zona[][] tablero = new Zona[4][5];
         inicializarTablero(tablero);
         System.out.println("¡Bienvenido al juego de aventuras!\n" +
                 "¡Encuentra y mata al BOSS final para salvar al mundo!");
         do {
-            turnoDelJugador(tablero, jugador);
-        }while (tablero[0][2].equals(null));
+            if (jugador.getSaludTotal() <= 0 || ((Enemigo) tablero[0][2].getEntidad()).getSalud() <= 0) {
+                seguirJugando = false;
+            }else {
+                turnoDelJugador(tablero, jugador);
+            }
+        }while (seguirJugando);
 
+        if (jugador.getSaludTotal() <= 0) {
+            System.out.println("Has muerto...");
+        }else {
+            System.out.println("¡Has salvado al mundo!");
+        }
     }
 
     public static void inicializarTablero(Zona[][] tablero) {
@@ -25,9 +36,9 @@ public class JuegoAventuras {
     }
 
     public static void meterObjetosEnTablero(Zona[][] tablero) {
-        Entidad arma = new Arma("!", "Espada", 15, "una espada afilada con una grand piedra roja y brillante.");
-        Entidad escudo = new Escudo("O", "Escudo", 10, "un escudo blindado de platino.");
-        Entidad boss = new Enemigo("≠", "Dragon", 1, 50, 5, "¡CUIDADO! ¡Parece un enemigo muy peligroso!");
+        Entidad arma = new Espada("!", "Espada", 15, "Has encontrado una espada afilada con una grand piedra roja y brillante.");
+        Entidad escudo = new Escudo("O", "Escudo", 10, "Has encontrado un escudo blindado de platino.");
+        Entidad boss = new Enemigo("≠", "Dragon", 3, 65, 10, "¡CUIDADO! ¡Parece un enemigo muy peligroso!");
 
         tablero[0][2] = new Zona(boss);
         tablero[2][1] = new Zona(arma);
@@ -36,55 +47,39 @@ public class JuegoAventuras {
 
     public static void turnoDelJugador(Zona[][] tablero, Personaje jugador) {
         Scanner sc = new Scanner(System.in);
-        boolean movimientoValido = false;
+        boolean comandoValido = false;
         String[] arrayDeRespuestas;
-        int[] coordenadaXYanteriores = new int[2];
-        Zona zona = new Zona();
-        String accion;
+        String accionComando;
+        if (tablero[jugador.getPosicionX()][jugador.getPosicionY()] == tablero[0][2]) {
+            System.out.println(tablero[jugador.getPosicionX()][jugador.getPosicionY()].getEntidad().getDescripcion());
+        }
         do {
             dibujarTablero(tablero, jugador);
             System.out.print("> ");
-            accion = sc.nextLine();
-            arrayDeRespuestas = accion.split(" ");
-            if (arrayDeRespuestas[0].equalsIgnoreCase("mover")) {
-                //COMANDO
-                // MIRAR LISTA HABILIDADES DEL JUGADOR
-                // SI EXISTE
-                // Habilidad accion = null;
-                // IFS PARA CADA COMANDO accion = NEW Moverse()
-                // accion.realizarAccion()
-                if (validarAccion(arrayDeRespuestas)) {
-                    zona = calcularCoordenadasAnteriores(tablero, coordenadaXYanteriores, zona);
-                    if (calcularSiElMovimientoEsValido(jugador.getPosicionX(), jugador.getPosicionY(), arrayDeRespuestas[1])) {
-                        movimientoValido = moverse(arrayDeRespuestas, jugador);
-                        if (tablero[jugador.getPosicionX()][jugador.getPosicionY()].hayObjeto()) {
-                            System.out.println("¿Quieres explorar?");
-                            accion = sc.nextLine();
-                            if (accion.equalsIgnoreCase("si")) {
-                                explorar(tablero, jugador);
-                                System.out.println("¿Lo quieres equipar?");
-                                accion = sc.nextLine();
-                                if (accion.equalsIgnoreCase("si")) {
-                                    equipar(tablero, jugador, coordenadaXYanteriores);
-                                }
-                            }
-                        }
-                    }
+            accionComando = sc.nextLine();
+            arrayDeRespuestas = accionComando.split(" ");
+            if (tablero[jugador.getPosicionX()][jugador.getPosicionY()] == tablero[0][2] && accionComando.equalsIgnoreCase("atacar")) {
+                comandoValido = true;
+                atacar(tablero, jugador, (Enemigo) tablero[0][2].getEntidad());
+            }else {
+                if (arrayDeRespuestas[0].equalsIgnoreCase("mover")) {
+                    comandoValido = true;
+                    moverse(arrayDeRespuestas, jugador);
+                } else if (arrayDeRespuestas[0].equalsIgnoreCase("explorar")) {
+                    comandoValido = true;
+                    explorar(tablero, jugador);
+                } else if (arrayDeRespuestas[0].equalsIgnoreCase("equipar") && tablero[jugador.getPosicionX()][jugador.getPosicionY()].entidad != null && tablero[jugador.getPosicionX()][jugador.getPosicionY()] != tablero[0][2]) {
+                    comandoValido = true;
+                    equipar(tablero, jugador);
+                } else if (arrayDeRespuestas[0].equalsIgnoreCase("desequipar") && tablero[jugador.getPosicionX()][jugador.getPosicionY()].entidad != null && tablero[jugador.getPosicionX()][jugador.getPosicionY()] != tablero[0][2]) {
+                    comandoValido = true;
+                    desequipar(tablero, jugador);
+                }else {
+                    System.out.println("Comando no valido");
                 }
             }
             System.out.println();
-        } while (!movimientoValido);
-        // BORRO EL OBJETO DE LA CLASE ZONA ANTERIOR POR UNO NUEVO (VACIO)
-        tablero[coordenadaXYanteriores[0]][coordenadaXYanteriores[1]] = new Zona();
-        // PASO LA ZONA ANTERIOR QUE TENIA MI PERSONAJE A LA NUEVA ZONA
-        tablero[jugador.getPosicionX()][jugador.getPosicionY()] = zona;
-        System.out.println(jugador);
-
-        /// PRINT
-        //// FOR
-        ////       FOR
-        ////
-
+        } while (!comandoValido);
     }
 
     public static void dibujarTablero(Zona[][] tablero, Personaje jugador) {
@@ -101,69 +96,40 @@ public class JuegoAventuras {
         System.out.println();
     }
 
-    public static boolean validarAccion(String[] arrayDeRespuestas) {
-        boolean moverse = false;
-        if (arrayDeRespuestas[0].equalsIgnoreCase("mover") && arrayDeRespuestas[1].equalsIgnoreCase("norte")) {
-            moverse = true;
-        } else if (arrayDeRespuestas[0].equalsIgnoreCase("mover") && arrayDeRespuestas[1].equalsIgnoreCase("este")) {
-            moverse = true;
-        } else if (arrayDeRespuestas[0].equalsIgnoreCase("mover") && arrayDeRespuestas[1].equalsIgnoreCase("sur")) {
-            moverse = true;
-        } else if (arrayDeRespuestas[0].equalsIgnoreCase("mover") && arrayDeRespuestas[1].equalsIgnoreCase("oeste")) {
-            moverse = true;
-        }
-        return moverse;
-    }
-
-    public static Zona calcularCoordenadasAnteriores(Zona[][] tablero, int[] coordenadaXYanteriores, Zona zona) {
-        for (int i = 0; i < tablero.length; i++) {
-            for (int j = 0; j < tablero[i].length; j++) {
-                if (tablero[i][j].toString().equalsIgnoreCase("1")) {
-                    coordenadaXYanteriores[0] = i;
-                    coordenadaXYanteriores[1] = j;
-                    zona = tablero[i][j];
-                }
-            }
-        }
-        return zona;
-    }
-
-    public static boolean calcularSiElMovimientoEsValido(int fila, int columna, String arrayDeRespuesta) {
-        if (arrayDeRespuesta.equalsIgnoreCase("norte")) {
-            fila--;
-        } else if (arrayDeRespuesta.equalsIgnoreCase("este")) {
-            columna++;
-        } else if (arrayDeRespuesta.equalsIgnoreCase("sur")) {
-            fila++;
-        } else if (arrayDeRespuesta.equalsIgnoreCase("oeste")) {
-            columna--;
-        }else {
-            return false;
-        }
-        return movimientoValido(fila, columna);
-    }
-
-    public static boolean movimientoValido(int fila, int columna) {
-        return fila >= 0 && fila <= 3 && columna >= 0 && columna <= 4;
-    }
-
-    public static boolean moverse(String[] arrayDeRespuestas, Personaje jugador) {
+    public static void moverse(String[] arrayDeRespuestas, Personaje jugador) {
         Habilidad moverse = new Moverse(jugador, arrayDeRespuestas[1]);
-        moverse.realizarAccion();
-        return true;
+        System.out.println(moverse.realizarAccion());
     }
 
     public static void explorar(Zona[][] tablero, Personaje jugador) {
-        Habilidad explorar = new Explorar(tablero);
-        jugador.explorar(explorar);
+        Habilidad explorar = new Explorar(tablero, jugador);
+        System.out.println(explorar.realizarAccion());
     }
 
-    public static void equipar(Zona[][] tablero, Personaje jugador, int[] coordenadaXYanteriores) {
-        Equipo objeto = tablero[jugador.getPosicionX()][jugador.getPosicionY()].getEquipo();
+    public static void equipar(Zona[][] tablero, Personaje jugador) {
+        Equipo objeto = (Equipo) tablero[jugador.getPosicionX()][jugador.getPosicionY()].getEntidad();
         jugador.agregarObjeto(objeto);
-        tablero[jugador.getPosicionX()][jugador.getPosicionY()].setEquipo(null);
-        if (coordenadaXYanteriores[0] != jugador.getPosicionX() || coordenadaXYanteriores[1] != jugador.getPosicionY()) {
-            tablero[coordenadaXYanteriores[0]][coordenadaXYanteriores[1]].setEquipo(objeto);
+        tablero[jugador.getPosicionX()][jugador.getPosicionY()].setEntidad(null);
+    }
+
+    public static void desequipar(Zona[][] tablero, Personaje jugador) {
+        int cont = 0;
+        int posicionDelObjeto;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Objetos en tu inventario: ");
+        for (Equipo equipo : jugador.getEquipo()) {
+            System.out.println(cont++ + ". " + equipo.getNombre());
+
         }
+        System.out.println("¿Cual quieres desequipar?");
+        posicionDelObjeto = sc.nextInt();
+        Entidad objeto = jugador.getEquipo().get(posicionDelObjeto);
+        tablero[jugador.getPosicionX()][jugador.getPosicionY()].setEntidad(objeto);
+        jugador.quitarObjeto(jugador.getEquipo().get(posicionDelObjeto));
+    }
+
+    public static void atacar(Zona[][] tablero, Personaje jugador, Enemigo enemigo) {
+        Habilidad atacar = new Atacar(tablero, jugador, enemigo);
+        atacar.realizarAccion();
     }
 }

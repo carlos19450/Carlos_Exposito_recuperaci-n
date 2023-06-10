@@ -39,6 +39,14 @@ public class Zona {
         this.equipo = equipo;
     }
 
+    public Entidad getEntidad() {
+        return entidad;
+    }
+
+    public void setEntidad(Entidad entidad) {
+        this.entidad = entidad;
+    }
+
     public boolean hayObjeto() {
         if (enemigo != null) {
             return true;
@@ -46,10 +54,8 @@ public class Zona {
     }
 
     public String devolverDescripcion() {
-        if (enemigo != null) {
-            return enemigo.getDescripcion();
-        } else if (equipo != null) {
-            return equipo.getDescripcion();
+        if (entidad != null) {
+            return entidad.getDescripcion();
         } else {
             return "Parece que en esta zona no hay nada...";
         }

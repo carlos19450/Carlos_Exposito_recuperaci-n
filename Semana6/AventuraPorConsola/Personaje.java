@@ -8,7 +8,6 @@ public class Personaje {
     private String nombre;
     private int nivel;
     private int saludTotal;
-    private int saludRestante;
     private int defensa;
     private int fuerza;
     private int posicionX;
@@ -23,7 +22,6 @@ public class Personaje {
         this.nombre = nombre;
         this.nivel = nivel;
         this.saludTotal = saludTotal;
-        this.saludRestante = saludTotal;
         this.defensa = defensa;
         this.fuerza = fuerza;
         this.equipo = new ArrayList<>();
@@ -56,14 +54,6 @@ public class Personaje {
 
     public void setSaludTotal(int saludTotal) {
         this.saludTotal = saludTotal;
-    }
-
-    public int getSaludRestante() {
-        return saludRestante;
-    }
-
-    public void setSaludRestante(int saludRestante) {
-        this.saludRestante = saludRestante;
     }
 
     public int getDefensa() {
@@ -140,26 +130,23 @@ public class Personaje {
         this.fuerza -= danio;
     }
 
-    public void aumentarDefensa(int defensa) {
-        this.defensa += defensa;
+    public void aumentarVida(int vida) {
+        this.saludTotal += vida;
     }
 
-    public void disminuirDefensa(int defensa) {
-        this.defensa -= defensa;
+    public void disminuirVida(int vida) {
+        this.saludTotal -= vida;
     }
 
     @Override
     public String toString() {
-        return "Personaje{" +
-                "id='" + id + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", nivel=" + nivel +
-                ", saludTotal=" + saludTotal +
-                ", saludRestante=" + saludRestante +
-                ", defensa=" + defensa +
-                ", fuerza=" + fuerza +
-                ", posicionX=" + posicionX +
-                ", posicionY=" + posicionY +
-                '}';
+        return "PERSONAJE" + "\n" +
+                "\tId: " + id + "\n" +
+                "\tNombre: " + nombre + "\n" +
+                "\tNivel: " + nivel + "\n" +
+                "\tSaludTotal: " + saludTotal + "\n" +
+                "\tFuerza: " + fuerza + "\n" +
+                "\tPosicionX: " + posicionX + "\n" +
+                "\tPosicionY: " + posicionY + "\n";
     }
 }

@@ -21,16 +21,17 @@ public class Moverse extends Habilidad{
 
     @Override
     public String realizarAccion() {
+        String estadoDelMovimiento = "Se necesita una direccion.";
         if (direccion.equalsIgnoreCase("norte")) {
-            moverNorte(this.personaje);
+            estadoDelMovimiento = moverNorte(this.personaje);
         }else if (direccion.equalsIgnoreCase("sur")) {
-            moverSur(this.personaje);
+            estadoDelMovimiento = moverSur(this.personaje);
         }else if (direccion.equalsIgnoreCase("este")) {
-            moverEste(this.personaje);
+            estadoDelMovimiento = moverEste(this.personaje);
         }else if (direccion.equalsIgnoreCase("oeste")) {
-            moverOeste(this.personaje);
+            estadoDelMovimiento = moverOeste(this.personaje);
         }
-        return null;
+        return estadoDelMovimiento;
     }
 
     public String moverNorte(Personaje personaje) {
@@ -46,34 +47,34 @@ public class Moverse extends Habilidad{
 
     public String moverSur(Personaje personaje) {
         String estadoDelMovimiento;
-        if (personaje.getPosicionX() + 1 < 0) {
+        if (personaje.getPosicionX() + 1 > 3) {
             estadoDelMovimiento = "No existe mapa por seguir...";
         }else {
+            personaje.setPosicionX(personaje.getPosicionX() + 1);
             estadoDelMovimiento = "He andado hasta la siguiente zona (%d,%d)".formatted(personaje.getPosicionX(),personaje.getPosicionY());
         }
-        personaje.setPosicionX(personaje.getPosicionX() + 1);
         return estadoDelMovimiento;
     }
 
     public String moverEste(Personaje personaje) {
         String estadoDelMovimiento;
-        if (personaje.getPosicionY() + 1 > 5) {
+        if (personaje.getPosicionY() + 1 > 4) {
             estadoDelMovimiento = "Avanzas pero algo te devuelve donde antes...";
         }else {
+            personaje.setPosicionY(personaje.getPosicionY() + 1);
             estadoDelMovimiento = "He andado hasta la siguiente zona (%d,%d)".formatted(personaje.getPosicionX(),personaje.getPosicionY());
         }
-        personaje.setPosicionY(personaje.getPosicionY() + 1);
         return estadoDelMovimiento;
     }
 
     public String moverOeste(Personaje personaje) {
         String estadoDelMovimiento;
-        if (personaje.getPosicionY() + 1 < 0) {
+        if (personaje.getPosicionY() - 1 < 0) {
             estadoDelMovimiento = "Solo hay agua y no sabes nadar...";
         }else {
+            personaje.setPosicionY(personaje.getPosicionY() - 1);
             estadoDelMovimiento = "He andado hasta la siguiente zona (%d,%d)".formatted(personaje.getPosicionX(),personaje.getPosicionY());
         }
-        personaje.setPosicionY(personaje.getPosicionY() - 1);
         return estadoDelMovimiento;
     }
 

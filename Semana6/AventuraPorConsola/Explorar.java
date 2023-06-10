@@ -4,10 +4,12 @@ import java.util.Arrays;
 
 public class Explorar extends Habilidad {
     private Zona[][] tablero;
+    private Personaje personaje;
 
-    public Explorar(Zona[][] tablero) {
-        super(null);
+    public Explorar(Zona[][] tablero, Personaje personaje) {
+        super("Explorar");
         this.tablero = tablero;
+        this.personaje = personaje;
     }
 
     public Zona[][] getTablero() {
@@ -18,8 +20,13 @@ public class Explorar extends Habilidad {
         this.tablero = tablero;
     }
 
-    public void explorarZona(Personaje personaje) {
-        System.out.println("Has encontrado " + tablero[personaje.getPosicionX()][personaje.getPosicionY()].devolverDescripcion());
+    public String explorarZona(Personaje personaje) {
+        return tablero[personaje.getPosicionX()][personaje.getPosicionY()].devolverDescripcion();
+    }
+
+    @Override
+    public String realizarAccion() {
+        return explorarZona(this.personaje);
     }
 
     @Override

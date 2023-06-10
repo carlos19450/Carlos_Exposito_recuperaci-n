@@ -16,11 +16,7 @@ public abstract class Habilidad {
                 this.tipo = tipo;
         }
 
-
-
         //abstract puedoRealizarAccion()
-        public void explorarZona(Personaje personaje) {
-        }
 
         public abstract String realizarAccion();
         @Override

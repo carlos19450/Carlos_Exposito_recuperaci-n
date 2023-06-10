@@ -2,12 +2,12 @@ package AventuraPorConsola;
 
 public class Escudo extends Equipo {
     private final String id;
-    private int defensa;
+    private int vida;
     private String descripcion;
 
-    public Escudo(String id, String nombre, int defensa, String descripcion) {
+    public Escudo(String id, String nombre, int vida, String descripcion) {
         super(id, nombre, "Escudo", descripcion);
-        this.defensa = defensa;
+        this.vida = vida;
         this.id = id;
         this.descripcion = descripcion;
     }
@@ -16,12 +16,12 @@ public class Escudo extends Equipo {
         return id;
     }
 
-    public int getDefensa() {
-        return defensa;
+    public int getVida() {
+        return vida;
     }
 
-    public void setDefensa(int defensa) {
-        this.defensa = defensa;
+    public void setVida(int vida) {
+        this.vida = vida;
     }
 
     public String getDescripcion() {
@@ -35,20 +35,22 @@ public class Escudo extends Equipo {
     @Override
     public void aplicarEfecto(Personaje personaje) {
         // Aplicar el efecto del arma al personaje (aumento de fuerza)
-        personaje.aumentarDefensa(defensa);
+        System.out.println("Te has equipado un escudo");
+        personaje.aumentarVida(vida);
     }
 
     @Override
     public void quitarEfecto(Personaje personaje) {
         // Quitar el efecto del arma al personaje (disminución de defensa)
-        personaje.disminuirDefensa(defensa);
+        System.out.println("Te has desequipado un escudo");
+        personaje.disminuirVida(vida);
     }
 
     @Override
     public String toString() {
         return "Escudo{" +
                 "id='" + id + '\'' +
-                ", defensa=" + defensa +
+                ", vida=" + vida +
                 ", descripcion='" + descripcion + '\'' +
                 '}';
     }

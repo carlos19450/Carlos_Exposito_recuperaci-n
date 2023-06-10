@@ -1,12 +1,12 @@
 package AventuraPorConsola;
 
-public class Arma extends Equipo {
+public class Espada extends Equipo {
     private final String id;
     private int danio;
     private String descripcion;
 
-    public Arma(String id, String nombre, int danio, String descripcion) {
-        super(id, nombre, "Arma", descripcion);
+    public Espada(String id, String nombre, int danio, String descripcion) {
+        super(id, nombre, "Espada", descripcion);
         this.danio = danio;
         this.id = id;
         this.descripcion = descripcion;
@@ -35,12 +35,14 @@ public class Arma extends Equipo {
     @Override
     public void aplicarEfecto(Personaje personaje) {
         // Aplicar el efecto del arma al personaje (más fuerza)
+        System.out.println("Te has equipado una espada");
         personaje.aumentarFuerza(danio);
     }
 
     @Override
     public void quitarEfecto(Personaje personaje) {
         // Quitar el efecto del arma al personaje (menos fuerza)
+        System.out.println("Te has desequipado una espada");
         personaje.disminuirFuerza(danio);
     }
 

@@ -8,7 +8,6 @@ public class Enemigo extends Entidad{
     private String nombre;
     private int nivel;
     private int salud;
-    private List<Habilidad> habilidades;
     private int dano;
     private String descripcion;
     public Enemigo(String id, String nombre, int nivel, int salud, int dano, String descripcion) {
@@ -17,7 +16,6 @@ public class Enemigo extends Entidad{
         this.nivel = nivel;
         this.salud = salud;
         this.dano = dano;
-        this.habilidades = new ArrayList<>();
         this.id = id;
         this.descripcion = descripcion;
     }
@@ -50,14 +48,6 @@ public class Enemigo extends Entidad{
         this.salud = salud;
     }
 
-    public List<Habilidad> getHabilidades() {
-        return habilidades;
-    }
-
-    public void setHabilidades(List<Habilidad> habilidades) {
-        this.habilidades = habilidades;
-    }
-
     public int getDano() {
         return dano;
     }
@@ -76,14 +66,11 @@ public class Enemigo extends Entidad{
 
     @Override
     public String toString() {
-        return "Enemigo{" +
-                "id='" + id + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", nivel=" + nivel +
-                ", salud=" + salud +
-                ", habilidades=" + habilidades +
-                ", dano=" + dano +
-                ", descripcion='" + descripcion + '\'' +
-                '}';
+        return "ENEMIGO" + "\n" +
+                "\tNombre: " + nombre + "\n" +
+                "\tNivel: " + nivel + "\n" +
+                "\tSalud: " + salud + "\n" +
+                "\tDano: " + dano + "\n" +
+                "\tDescripcion: " + descripcion + "\n";
     }
 }

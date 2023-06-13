@@ -1,7 +1,5 @@
 package AventuraPorConsola;
 
-import java.util.Objects;
-
 public class Zona {
     private Personaje jugador;
     private Enemigo enemigo;

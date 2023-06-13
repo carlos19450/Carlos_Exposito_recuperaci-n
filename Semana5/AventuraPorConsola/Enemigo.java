@@ -1,8 +1,5 @@
 package AventuraPorConsola;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Enemigo extends Entidad{
     private final String id;
     private String nombre;
